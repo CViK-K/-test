@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人智慧投資決策儀表板 v2 (2026)</title>
+    <!-- 引入 Tailwind CSS & Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- 標題 -->
+        <header class="mb-8 border-b border-slate-700 pb-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-cyan-400">📊 投資決策與產業智慧儀表板</h1>
+                <p class="text-slate-400 text-sm mt-1">完美整合：長線資產佈局 ✖ 中期波段策略 ✖ 產業智慧庫</p>
+            </div>
+            <div class="bg-slate-800 px-4 py-2 rounded-lg text-xs font-mono text-emerald-400 border border-slate-700">
+                最新更新: 2026.05
+            </div>
+        </header>
+
+        <!-- 第一層：資金布局圖表區 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- 圖表一：長線核心常態扣款 -->
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl flex flex-col justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-emerald-400 mb-1">🧭 長線核心配置 (每月固定 5,000 元)</h2>
+                    <p class="text-xs text-slate-400 mb-4">目標：大盤市值成長與先進封裝載板核心，累積長線複利</p>
+                </div>
+                <div class="w-full max-w-[240px] mx-auto mb-4">
+                    <canvas id="longTermChart"></canvas>
+                </div>
+                <div class="bg-slate-900/60 p-3 rounded-lg text-xs text-slate-300">
+                    <strong>配置明細：</strong> 欣興 (3,200元/零股) + 0050 (1,800元)。策略最精實，大盤成分股與半導體載板老大哥雙管齊下。
+                </div>
+            </div>
+
+            <!-- 圖表二：3萬獎金中期波段衝刺 -->
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl flex flex-col justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-yellow-400 mb-1">🦅 中期波段衝刺 (單筆獎金 30,000 元)</h2>
+                    <p class="text-xs text-slate-400 mb-4">目標：週期 0.5~3 個月，1~2 週內快速分批零股建倉博取價差</p>
+                </div>
+                <div class="w-full max-w-[240px] mx-auto mb-4">
+                    <canvas id="midTermChart"></canvas>
+                </div>
+                <div class="bg-slate-900/60 p-3 rounded-lg text-xs text-slate-300">
+                    <strong>配置明細：</strong> 景碩 (20,000元/零股) + 南電 (10,000元/零股)。主攻高彈性與營收剛全面爆發的中短期黑馬。
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二層：動態分頁產業介紹區 -->
+        <div class="bg-slate-800 rounded-xl border border-slate-700 shadow-xl mb-8 overflow-hidden">
+            <!-- 分頁按鈕 -->
+            <div class="flex border-b border-slate-700 bg-slate-900/50">
+                <button onclick="switchTab('ic-substrate')" id="btn-ic-substrate" class="tab-btn px-6 py-3 font-medium text-sm text-cyan-400 border-b-2 border-cyan-400 focus:outline-none">
+                    💾 IC 載板產業鏈
+                </button>
+                <button onclick="switchTab('memory')" id="btn-memory" class="tab-btn px-6 py-3 font-medium text-sm text-slate-400 border-b-2 border-transparent hover:text-slate-200 focus:outline-none">
+                    🧠 記憶體模組與原廠
+                </button>
+                <button onclick="switchTab('lead-frame')" id="btn-lead-frame" class="tab-btn px-6 py-3 font-medium text-sm text-slate-400 border-b-2 border-transparent hover:text-slate-200 focus:outline-none">
+                    🔌 導線架母子集團
+                </button>
+            </div>
+
+            <!-- 分頁內文 -->
+            <div class="p-6 text-sm text-slate-300 space-y-4">
+                <!-- IC載板分頁 -->
+                <div id="tab-ic-substrate" class="tab-content active space-y-3">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">💡 IC 載板：晶片與主機板間的奈米級橋樑</h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        晶圓廠生產的裸晶極度脆弱且接點微小。IC載板負責將晶片上的奈米訊號引導放大，與PCB主機板連通。
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-700/50">
+                            <span class="text-cyan-400 font-bold">● ABF 載板（高速運算核心）</span>
+                            <p class="text-xs text-slate-400 mt-1">線路極細、層數高。主要用於 <strong>AI 伺服器、GPU（如NVIDIA Blackwell）、高階CPU</strong>。全球由台、日、韓寡占，技術壁壘極高。</p>
+                        </div>
+                        <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-700/50">
+                            <span class="text-amber-400 font-bold">● BT 載板（輕薄行動電子）</span>
+                            <p class="text-xs text-slate-400 mt-1">具備高耐熱與抗干擾特性。主要用於 <strong>智慧型手機、射頻晶片(RF)、智慧穿戴、以及 DRAM/Flash 記憶體封裝</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 記憶體分頁 -->
+                <div id="tab-memory" class="tab-content space-y-3">
+                    <h3 class="text-base font-bold text-white">📈 記憶體產業：週期性明確的報價紅利市場</h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        2026年受惠於雲端大廠大量建立 AI 推論基礎設施（DDR5、高容量RDIMM需求大噴發），產業迎來超級黃金週期。
+                    </p>
+                    <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-700/50">
+                        <span class="text-emerald-400 font-bold">模組廠與原廠的獲利奧秘：</span>
+                        <p class="text-xs text-slate-400 mt-1">像<strong>十銓、威剛</strong>這類的模組廠，在報價低點囤積了大量「低價庫存」。當原廠因供不應求調高現貨/合約報價時，模組廠能以高市價售出低成本產品，產生巨大的毛利率與獲利槓桿彈性，屬於短中期財報大放異彩的板塊。</p>
+                    </div>
+                </div>
+
+                <!-- 導線架分頁 -->
+                <div id="tab-lead-frame" class="tab-content space-y-3">
+                    <h3 class="text-base font-bold text-white">🔌 導線架：成熟製程與高功率元件的金屬骨架</h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        並非所有晶片都需要昂貴的IC載板。全球有龐大的 <strong>車用電子、電源管理晶片(PMIC)、MOSFET(功率元件)</strong> 依然全面依賴導線架（Lead Frame）來固定晶片並提供高效率散熱。
+                    </p>
+                    <p class="text-xs text-slate-400">
+                        <strong>長華* (8070) 與 長科* (6548)</strong> 為經典母子檔（面額1元）。長華負責代理高階封裝材料與台積電大聯盟所需的先進封裝設備（通路）；長科則專攻高階蝕刻式導線架研發（製造），完美通吃通路與車用/AI電源組件雙重紅利。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第三層：核心觀察產業與標的快檢表 -->
+        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl mb-8">
+            <h2 class="text-xl font-bold text-cyan-400 mb-4 flex items-center gap-2">
+                <span>🎯 核心觀察產業與標的快檢表 (長線 ✖ 中期對照)</span>
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm text-slate-300">
+                    <thead>
+                        <tr class="border-b border-slate-700 bg-slate-900/50 text-xs md:text-sm">
+                            <th class="p-3 font-semibold text-slate-200">股票名稱 (代號)</th>
+                            <th class="p-3 font-semibold text-emerald-400 bg-emerald-950/20">🛡️ 長期投資操作觀察點</th>
+                            <th class="p-3 font-semibold text-yellow-400 bg-yellow-950/20">🦅 中期波段操作觀察點 (半個月~3個月)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700/50 text-xs md:text-sm">
+                        <tr>
+                            <td class="p-3 font-bold text-white whitespace-nowrap">0050 ETF</td>
+                            <td class="p-3 bg-emerald-950/10">不看盤、不對賭單一個股。每月固定 1800 元長線微笑曲線。重點觀察加權指數長線多頭排列與台積電全球市佔率。</td>
+                            <td class="p-3 bg-yellow-950/10 text-slate-500">不適用（此部位為長線防禦母體，不進行中期波段交易）。</td>
+                        </tr>
+                        <tr class="bg-slate-900/20">
+                            <td class="p-3 font-bold text-white whitespace-nowrap">欣興 (3037)</td>
+                            <td class="p-3 bg-emerald-950/10 text-slate-300"><strong>【長線加碼首選】</strong> 每月 3200 元定期定額買進。長線需追蹤 <strong>次世代高階 ABF 載板產能良率</strong> 以及美系 AI 晶片大廠（NVIDIA/AMD）的綁定深度。</td>
+                            <td class="p-3 bg-yellow-950/10 text-slate-300">股本大，屬於權值股。中期操作適合在「大盤波段起漲、高階封裝CoWoS缺貨重啟題材」時，沿月線分批賺取穩健價差。</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-white whitespace-nowrap">南電 (8046)</td>
+                            <td class="p-3 bg-emerald-950/10 text-slate-400">追蹤台塑集團轉型決心。長期需觀察高達 160 億以上的「史上最大資本支出」何時全面在台灣、昆山轉化為量產貢獻。</td>
+                            <td class="p-3 bg-yellow-950/10 text-emerald-400"><strong>【中期衝刺黑馬】</strong> 4月營收創40個月新高，且 AI 產品營收過半。短中期攻擊性極強，適合在法人（投信/外資）聯手連續買超、營收公布年增強勁時順勢操作。</td>
+                        </tr>
+                        <tr class="bg-slate-900/20">
+                            <td class="p-3 font-bold text-white whitespace-nowrap">景碩 (3189)</td>
+                            <td class="p-3 bg-emerald-950/10 text-slate-400">長期主要看消費性電子（AI智慧型手機晶片與射頻元件）的規格大升級浪潮，以及轉投資晶碩光學的穩定配息收益。</td>
+                            <td class="p-3 bg-yellow-950/10 text-yellow-400"><strong>【中期價差主將】</strong> 三雄中股本最小、股性最活。中短期內最容易因記憶體漲價、手機庫存回補題材而股價劇烈噴發，為3萬獎金的首要價差進攻點。</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-white whitespace-nowrap">十銓 (4967)</td>
+                            <td class="p-3 bg-emerald-950/10 text-slate-400">長期需觀察公司是否能從消費型 B2C 成功轉型為穩定的 B2B 工控、車載與企業級資料中心供應商，藉此降低記憶體景氣循環的暴賺暴跌。</td>
+                            <td class="p-3 bg-yellow-950/10 text-slate-300">短期具備 2026Q1 單季 EPS 27 元的恐怖題材。月中、月底密切注意 DRAM 現貨合約價報價。若報價續漲，通常會有一波強勢的中期報復性波段。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 頁尾警語 -->
+        <footer class="text-center text-xs text-slate-500 space-y-1">
+            <p>💡 操作溫馨提醒：長線扣款請專注在紀律（手續費1元最關鍵）；中期波段請嚴格執行紀律，預設 15%~25% 停利，或跌破關鍵支撐/虧損 7%~10% 果斷離場保護本金。</p>
+            <p>本儀表板內容僅供學習與策略討論參考，投資人應獨立判斷並自負投資風險。</p>
+        </footer>
+    </div>
+
+    <!-- 渲染圖表與動態分頁的 Script -->
+    <script>
+        // 分頁切換邏輯
+        function switchTab(tabId) {
+            // 隱藏所有分頁
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // 恢復所有按鈕樣式
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('text-cyan-400', 'border-cyan-400');
+                btn.classList.add('text-slate-400', 'border-transparent');
+            });
+
+            // 激活指定分頁與按鈕
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.classList.remove('text-slate-400', 'border-transparent');
+            activeBtn.classList.add('text-cyan-400', 'border-cyan-400');
+        }
+
+        // 圖表一：長線核心
+        const ctxLong = document.getElementById('longTermChart').getContext('2d');
+        new Chart(ctxLong, {
+            type: 'doughnut',
+            data: {
+                labels: ['欣興 (3037)', '0050 ETF'],
+                datasets: [{
+                    data: [3200, 1800],
+                    backgroundColor: ['#10b981', '#06b6d4'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } }
+                }
+            }
+        });
+
+        // 圖表二：中期波段
+        const ctxMid = document.getElementById('midTermChart').getContext('2d');
+        new Chart(ctxMid, {
+            type: 'doughnut',
+            data: {
+                labels: ['景碩 (3189)', '南電 (8046)'],
+                datasets: [{
+                    data: [20000, 10000],
+                    backgroundColor: ['#fbbf24', '#f43f5e'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
