@@ -3,232 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>個人智慧投資決策儀表板 v2 (2026)</title>
-    <!-- 引入 Tailwind CSS & Chart.js -->
+    <title>智慧投資決策儀表板 | AI 半導體 & 功率晶片專題</title>
+    <!-- 引入 Tailwind CSS 打造絕佳跨裝置排版 -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 引入 FontAwesome 圖示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #0f172a; color: #f8fafc; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .active-tab { border-bottom-color: #3b82f6; color: #3b82f6; font-weight: bold; }
+        .node-active { transform: scale(1.05); box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3); border-color: #3b82f6; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen">
 
-    <div class="max-w-6xl mx-auto">
-        <!-- 標題 -->
-        <header class="mb-8 border-b border-slate-700 pb-4 flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl md:text-3xl font-bold text-cyan-400">📊 投資決策與產業智慧儀表板</h1>
-                <p class="text-slate-400 text-sm mt-1">完美整合：長線資產佈局 ✖ 中期波段策略 ✖ 產業智慧庫</p>
+    <!-- 頂部導航欄 -->
+    <header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-chart-line text-blue-400 text-2xl"></i>
+                <h1 class="text-xl font-bold tracking-wide text-white">智慧投資決策儀表板</h1>
             </div>
-            <div class="bg-slate-800 px-4 py-2 rounded-lg text-xs font-mono text-emerald-400 border border-slate-700">
-                最新更新: 2026.05
-            </div>
-        </header>
-
-        <!-- 第一層：資金布局圖表區 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <!-- 圖表一：長線核心常態扣款 -->
-            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl flex flex-col justify-between">
-                <div>
-                    <h2 class="text-lg font-bold text-emerald-400 mb-1">🧭 長線核心配置 (每月固定 5,000 元)</h2>
-                    <p class="text-xs text-slate-400 mb-4">目標：大盤市值成長與先進封裝載板核心，累積長線複利</p>
-                </div>
-                <div class="w-full max-w-[240px] mx-auto mb-4">
-                    <canvas id="longTermChart"></canvas>
-                </div>
-                <div class="bg-slate-900/60 p-3 rounded-lg text-xs text-slate-300">
-                    <strong>配置明細：</strong> 欣興 (3,200元/零股) + 0050 (1,800元)。策略最精實，大盤成分股與半導體載板老大哥雙管齊下。
-                </div>
-            </div>
-
-            <!-- 圖表二：3萬獎金中期波段衝刺 -->
-            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl flex flex-col justify-between">
-                <div>
-                    <h2 class="text-lg font-bold text-yellow-400 mb-1">🦅 中期波段衝刺 (單筆獎金 30,000 元)</h2>
-                    <p class="text-xs text-slate-400 mb-4">目標：週期 0.5~3 個月，1~2 週內快速分批零股建倉博取價差</p>
-                </div>
-                <div class="w-full max-w-[240px] mx-auto mb-4">
-                    <canvas id="midTermChart"></canvas>
-                </div>
-                <div class="bg-slate-900/60 p-3 rounded-lg text-xs text-slate-300">
-                    <strong>配置明細：</strong> 景碩 (20,000元/零股) + 南電 (10,000元/零股)。主攻高彈性與營收剛全面爆發的中短期黑馬。
-                </div>
+            <div class="text-sm text-gray-400 bg-gray-900 px-3 py-1.5 rounded-full border border-gray-700">
+                <i class="fa-solid fa-calendar-day text-blue-400 mr-1"></i> 2026年 產業動態追蹤
             </div>
         </div>
+    </header>
 
-        <!-- 第二層：動態分頁產業介紹區 -->
-        <div class="bg-slate-800 rounded-xl border border-slate-700 shadow-xl mb-8 overflow-hidden">
-            <!-- 分頁按鈕 -->
-            <div class="flex border-b border-slate-700 bg-slate-900/50">
-                <button onclick="switchTab('ic-substrate')" id="btn-ic-substrate" class="tab-btn px-6 py-3 font-medium text-sm text-cyan-400 border-b-2 border-cyan-400 focus:outline-none">
-                    💾 IC 載板產業鏈
-                </button>
-                <button onclick="switchTab('memory')" id="btn-memory" class="tab-btn px-6 py-3 font-medium text-sm text-slate-400 border-b-2 border-transparent hover:text-slate-200 focus:outline-none">
-                    🧠 記憶體模組與原廠
-                </button>
-                <button onclick="switchTab('lead-frame')" id="btn-lead-frame" class="tab-btn px-6 py-3 font-medium text-sm text-slate-400 border-b-2 border-transparent hover:text-slate-200 focus:outline-none">
-                    🔌 導線架母子集團
-                </button>
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-12">
+
+        <!-- 區塊一：【全新功能】可互動式上下游關係版圖 -->
+        <section class="bg-gray-800 rounded-2xl p-6 border border-gray-700 shadow-xl">
+            <div class="mb-6">
+                <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-diagram-project text-indigo-400"></i> AI 半導體 & 功率元件「上下游合作鏈」互動版圖
+                </h2>
+                <p class="text-sm text-gray-400 mt-1">點擊下方流程圖中的任一「企業節點」，即可解鎖查看詳細的供應關係與產品核心細節。</p>
             </div>
 
-            <!-- 分頁內文 -->
-            <div class="p-6 text-sm text-slate-300 space-y-4">
-                <!-- IC載板分頁 -->
-                <div id="tab-ic-substrate" class="tab-content active space-y-3">
-                    <h3 class="text-base font-bold text-white flex items-center gap-2">💡 IC 載板：晶片與主機板間的奈米級橋樑</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        晶圓廠生產的裸晶極度脆弱且接點微小。IC載板負責將晶片上的奈米訊號引導放大，與PCB主機板連通。
-                    </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                        <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-700/50">
-                            <span class="text-cyan-400 font-bold">● ABF 載板（高速運算核心）</span>
-                            <p class="text-xs text-slate-400 mt-1">線路極細、層數高。主要用於 <strong>AI 伺服器、GPU（如NVIDIA Blackwell）、高階CPU</strong>。全球由台、日、韓寡占，技術壁壘極高。</p>
+            <!-- 產業鏈流程視覺化 -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+                
+                <!-- 上游 -->
+                <div class="space-y-4">
+                    <div class="text-xs font-semibold tracking-wider text-indigo-400 uppercase text-center bg-indigo-950/40 py-1 rounded border border-indigo-900">
+                        ▼ 上游：耗材與材料代理
+                    </div>
+                    <div id="node-3010" onclick="selectNode('3010')" class="cursor-pointer bg-gray-900 p-4 rounded-xl border-2 border-gray-700 transition-all duration-300 hover:border-blue-500">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-white">華立</span>
+                            <span class="text-xs bg-indigo-900 text-indigo-200 px-1.5 py-0.5 rounded">3010</span>
                         </div>
-                        <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-700/50">
-                            <span class="text-amber-400 font-bold">● BT 載板（輕薄行動電子）</span>
-                            <p class="text-xs text-slate-400 mt-1">具備高耐熱與抗干擾特性。主要用於 <strong>智慧型手機、射頻晶片(RF)、智慧穿戴、以及 DRAM/Flash 記憶體封裝</strong>。</p>
-                        </div>
+                        <p class="text-xs text-gray-400">日本光阻劑/高階乾膜總代理</p>
                     </div>
                 </div>
 
-                <!-- 記憶體分頁 -->
-                <div id="tab-memory" class="tab-content space-y-3">
-                    <h3 class="text-base font-bold text-white">📈 記憶體產業：週期性明確的報價紅利市場</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        2026年受惠於雲端大廠大量建立 AI 推論基礎設施（DDR5、高容量RDIMM需求大噴發），產業迎來超級黃金週期。
-                    </p>
-                    <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-700/50">
-                        <span class="text-emerald-400 font-bold">模組廠與原廠的獲利奧秘：</span>
-                        <p class="text-xs text-slate-400 mt-1">像<strong>十銓、威剛</strong>這類的模組廠，在報價低點囤積了大量「低價庫存」。當原廠因供不應求調高現貨/合約報價時，模組廠能以高市價售出低成本產品，產生巨大的毛利率與獲利槓桿彈性，屬於短中期財報大放異彩的板塊。</p>
+                <!-- 中游：設備藥水 -->
+                <div class="space-y-4">
+                    <div class="text-xs font-semibold tracking-wider text-emerald-400 uppercase text-center bg-emerald-950/40 py-1 rounded border border-emerald-900">
+                        ▼ 中游：精密設備與特殊藥水
+                    </div>
+                    <div id="node-2493" onclick="selectNode('2493')" class="cursor-pointer bg-gray-900 p-4 rounded-xl border-2 border-gray-700 transition-all duration-300 hover:border-blue-500">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-white">揚博</span>
+                            <span class="text-xs bg-emerald-900 text-emerald-200 px-1.5 py-0.5 rounded">2493</span>
+                        </div>
+                        <p class="text-xs text-gray-400">安博垂直電鍍機/晶圓級濕製程</p>
                     </div>
                 </div>
 
-                <!-- 導線架分頁 -->
-                <div id="tab-lead-frame" class="tab-content space-y-3">
-                    <h3 class="text-base font-bold text-white">🔌 導線架：成熟製程與高功率元件的金屬骨架</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        並非所有晶片都需要昂貴的IC載板。全球有龐大的 <strong>車用電子、電源管理晶片(PMIC)、MOSFET(功率元件)</strong> 依然全面依賴導線架（Lead Frame）來固定晶片並提供高效率散熱。
-                    </p>
-                    <p class="text-xs text-slate-400">
-                        <strong>長華* (8070) 與 長科* (6548)</strong> 為經典母子檔（面額1元）。長華負責代理高階封裝材料與台積電大聯盟所需的先進封裝設備（通路）；長科則專攻高階蝕刻式導線架研發（製造），完美通吃通路與車用/AI電源組件雙重紅利。
-                    </p>
+                <!-- 中游：封測 -->
+                <div class="space-y-4">
+                    <div class="text-xs font-semibold tracking-wider text-amber-400 uppercase text-center bg-amber-950/40 py-1 rounded border border-amber-900">
+                        ▼ 中游：專業功率半導體封測
+                    </div>
+                    <div id="node-6525" onclick="selectNode('6525')" class="cursor-pointer bg-gray-900 p-4 rounded-xl border-2 border-gray-700 transition-all duration-300 hover:border-blue-500">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-white">捷敏-KY</span>
+                            <span class="text-xs bg-amber-900 text-amber-200 px-1.5 py-0.5 rounded">6525</span>
+                        </div>
+                        <p class="text-xs text-gray-400">MOSFET/第三代半導體高壓封測</p>
+                    </div>
+                </div>
+
+                <!-- 下游 -->
+                <div class="space-y-4">
+                    <div class="text-xs font-semibold tracking-wider text-rose-400 uppercase text-center bg-rose-950/40 py-1 rounded border border-rose-900">
+                        ▼ 下游：載板與先進封裝(合作終端)
+                    </div>
+                    <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 opacity-80">
+                        <div class="font-semibold text-sm text-gray-300">護國神山群 & 先進封裝</div>
+                        <p class="text-xs text-gray-500 mt-1">台積電 (CoWoS)、日月光</p>
+                    </div>
+                    <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 opacity-80">
+                        <div class="font-semibold text-sm text-gray-300">高階載板三雄</div>
+                        <p class="text-xs text-gray-500 mt-1">欣興、南電、景碩</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 連動詳細資訊面板 -->
+            <div id="details-panel" class="mt-6 bg-gray-900 rounded-xl p-5 border border-gray-700 hidden">
+                <div class="flex items-center gap-3 mb-3">
+                    <h3 id="panel-title" class="text-lg font-bold text-blue-400">公司名稱</h3>
+                    <span id="panel-industry" class="text-xs bg-gray-800 text-gray-300 px-2 py-0.5 rounded border border-gray-600">類別</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-gray-800/50 p-3 rounded-lg border border-gray-700">
+                        <span class="text-xs text-gray-400 block mb-1"><i class="fa-solid fa-box text-blue-400 mr-1"></i> 核心產品 / 代理線</span>
+                        <p id="panel-products" class="text-gray-200 font-medium"></p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg border border-gray-700">
+                        <span class="text-xs text-gray-400 block mb-1"><i class="fa-solid fa-handshake text-emerald-400 mr-1"></i> 產業鏈合作 / 客戶關係</span>
+                        <p id="panel-relations" class="text-gray-200 font-medium"></p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg border border-gray-700">
+                        <span class="text-xs text-gray-400 block mb-1"><i class="fa-solid fa-bullseye text-amber-400 mr-1"></i> 2026年 關鍵競爭力解密</span>
+                        <p id="panel-strategy" class="text-gray-200 font-medium"></p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- 第三層：核心觀察產業與標的快檢表 -->
-        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl mb-8">
-            <h2 class="text-xl font-bold text-cyan-400 mb-4 flex items-center gap-2">
-                <span>🎯 核心觀察產業與標的快檢表 (長線 ✖ 中期對照)</span>
-            </h2>
+
+        <!-- 區塊二：全方位追蹤標的快檢表 -->
+        <section class="bg-gray-800 rounded-2xl p-6 border border-gray-700 shadow-xl overflow-hidden">
+            <div class="mb-6">
+                <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-emerald-400"></i> 精選標的高效快檢表
+                </h2>
+            </div>
+
+            <!-- 響應式表格容器 -->
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse text-sm text-slate-300">
+                <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="border-b border-slate-700 bg-slate-900/50 text-xs md:text-sm">
-                            <th class="p-3 font-semibold text-slate-200">股票名稱 (代號)</th>
-                            <th class="p-3 font-semibold text-emerald-400 bg-emerald-950/20">🛡️ 長期投資操作觀察點</th>
-                            <th class="p-3 font-semibold text-yellow-400 bg-yellow-950/20">🦅 中期波段操作觀察點 (半個月~3個月)</th>
+                        <tr class="border-b border-gray-700 text-gray-400 text-xs tracking-wider uppercase bg-gray-900/50">
+                            <th class="py-3 px-4">股票代號 / 名稱</th>
+                            <th class="py-3 px-4">主要產業分類</th>
+                            <th class="py-3 px-4">🛡️ 長期核心觀察點</th>
+                            <th class="py-3 px-4">🦅 中期波段催化劑 (0.5~3個月)</th>
+                            <th class="py-3 px-4">2026年 營運近況備忘</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-700/50 text-xs md:text-sm">
-                        <tr>
-                            <td class="p-3 font-bold text-white whitespace-nowrap">0050 ETF</td>
-                            <td class="p-3 bg-emerald-950/10">不看盤、不對賭單一個股。每月固定 1800 元長線微笑曲線。重點觀察加權指數長線多頭排列與台積電全球市佔率。</td>
-                            <td class="p-3 bg-yellow-950/10 text-slate-500">不適用（此部位為長線防禦母體，不進行中期波段交易）。</td>
+                    <tbody class="divide-y divide-dash divide-gray-700 text-sm">
+                        <!-- 華立 -->
+                        <tr class="hover:bg-gray-750/50 transition-colors">
+                            <td class="py-4 px-4 font-bold text-white">
+                                3010 華立
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="bg-indigo-950 text-indigo-300 text-xs px-2 py-1 rounded border border-indigo-900">電子通路 / 半導體材料</span>
+                            </td>
+                            <td class="py-4 px-4 text-gray-300">
+                                台積電先進製程(2奈米/3奈米)產能利用率；與日本JSR/信越等化學大廠的代理續約穩固度；綠能儲能案場轉投資收益。
+                            </td>
+                            <td class="py-4 px-4 text-gray-300">
+                                台積電調高資本支出；美日(熊本/亞利桑那)海外建廠產能正式放量；先進封裝(CoWoS)專用化學品拉貨潮。
+                            </td>
+                            <td class="py-4 px-4 text-xs text-emerald-400 font-medium">
+                                2026年Q1營收創歷史新高(218.4億元，年增17.4%)，受惠AI光阻劑與高階乾膜出貨極強。
+                            </td>
                         </tr>
-                        <tr class="bg-slate-900/20">
-                            <td class="p-3 font-bold text-white whitespace-nowrap">欣興 (3037)</td>
-                            <td class="p-3 bg-emerald-950/10 text-slate-300"><strong>【長線加碼首選】</strong> 每月 3200 元定期定額買進。長線需追蹤 <strong>次世代高階 ABF 載板產能良率</strong> 以及美系 AI 晶片大廠（NVIDIA/AMD）的綁定深度。</td>
-                            <td class="p-3 bg-yellow-950/10 text-slate-300">股本大，屬於權值股。中期操作適合在「大盤波段起漲、高階封裝CoWoS缺貨重啟題材」時，沿月線分批賺取穩健價差。</td>
+
+                        <!-- 揚博 -->
+                        <tr class="hover:bg-gray-750/50 transition-colors">
+                            <td class="py-4 px-4 font-bold text-white">
+                                2493 揚博
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="bg-emerald-950 text-emerald-300 text-xs px-2 py-1 rounded border border-emerald-900">電子設備 / 特用化學</span>
+                            </td>
+                            <td class="py-4 px-4 text-gray-300">
+                                全球半導體與高階載板廠的整體資本支出循環；高毛利「自研Ampoc機台」佔營收比重；配息率與殖利率防禦力。
+                            </td>
+                            <td class="py-4 px-4 text-gray-300">
+                                載板大廠(如欣興)泰國新廠2026放量裝機紅利；市場點火「先進封裝玻璃基板」濕製程製程設備題材。
+                            </td>
+                            <td class="py-4 px-4 text-xs text-gray-400">
+                                2026年前4月累計營收持平穩健。自研濕製程設備切入晶圓級先進封裝。
+                            </td>
                         </tr>
-                        <tr>
-                            <td class="p-3 font-bold text-white whitespace-nowrap">南電 (8046)</td>
-                            <td class="p-3 bg-emerald-950/10 text-slate-400">追蹤台塑集團轉型決心。長期需觀察高達 160 億以上的「史上最大資本支出」何時全面在台灣、昆山轉化為量產貢獻。</td>
-                            <td class="p-3 bg-yellow-950/10 text-emerald-400"><strong>【中期衝刺黑馬】</strong> 4月營收創40個月新高，且 AI 產品營收過半。短中期攻擊性極強，適合在法人（投信/外資）聯手連續買超、營收公布年增強勁時順勢操作。</td>
-                        </tr>
-                        <tr class="bg-slate-900/20">
-                            <td class="p-3 font-bold text-white whitespace-nowrap">景碩 (3189)</td>
-                            <td class="p-3 bg-emerald-950/10 text-slate-400">長期主要看消費性電子（AI智慧型手機晶片與射頻元件）的規格大升級浪潮，以及轉投資晶碩光學的穩定配息收益。</td>
-                            <td class="p-3 bg-yellow-950/10 text-yellow-400"><strong>【中期價差主將】</strong> 三雄中股本最小、股性最活。中短期內最容易因記憶體漲價、手機庫存回補題材而股價劇烈噴發，為3萬獎金的首要價差進攻點。</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 font-bold text-white whitespace-nowrap">十銓 (4967)</td>
-                            <td class="p-3 bg-emerald-950/10 text-slate-400">長期需觀察公司是否能從消費型 B2C 成功轉型為穩定的 B2B 工控、車載與企業級資料中心供應商，藉此降低記憶體景氣循環的暴賺暴跌。</td>
-                            <td class="p-3 bg-yellow-950/10 text-slate-300">短期具備 2026Q1 單季 EPS 27 元的恐怖題材。月中、月底密切注意 DRAM 現貨合約價報價。若報價續漲，通常會有一波強勢的中期報復性波段。</td>
+
+                        <!-- 捷敏-KY -->
+                        <tr class="hover:bg-gray-750/50 transition-colors">
+                            <td class="py-4 px-4 font-bold text-white">
+                                6525 捷敏-KY
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="bg-amber-950 text-amber-300 text-xs px-2 py-1 rounded border border-amber-900">半導體封測 / 功率元件</span>
+                            </td>
+                            <td class="py-4 px-4 text-gray-300">
+                                全球車用電子與電動車滲透率復甦力道；合肥新廠車用認證與產能爬坡進度；第三代半導體(SiC/GaN)營收佔比。
+                            </td>
+                            <td class="py-4 px-4 text-gray-300">
+                                AI伺服器大改版帶動超高功率電源管理晶片(PMIC)封測拉貨；國際車用IDM大廠釋出樂觀展望。
+                            </td>
+                            <td class="py-4 px-4 text-xs text-emerald-400 font-medium">
+                                2026年4月營收衝上5.4億元(年增18.3%)，刷新單月歷史新高，AI伺服器高壓電源封裝動能強勁。
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
+        </section>
 
-        <!-- 頁尾警語 -->
-        <footer class="text-center text-xs text-slate-500 space-y-1">
-            <p>💡 操作溫馨提醒：長線扣款請專注在紀律（手續費1元最關鍵）；中期波段請嚴格執行紀律，預設 15%~25% 停利，或跌破關鍵支撐/虧損 7%~10% 果斷離場保護本金。</p>
-            <p>本儀表板內容僅供學習與策略討論參考，投資人應獨立判斷並自負投資風險。</p>
-        </footer>
-    </div>
+    </main>
 
-    <!-- 渲染圖表與動態分頁的 Script -->
+    <!-- 頁腳說明 -->
+    <footer class="bg-gray-800 border-t border-gray-700 mt-12 py-6 text-center text-xs text-gray-500">
+        <p>智慧投資決策儀表板 • 數據與關係架構更新於 2026 年 5 月</p>
+        <p class="mt-1">※ 本網頁所列資訊僅供個人研究與範例參考，不代表任何買賣與投資建議 ※</p>
+    </footer>
+
+    <!-- 處理互動版圖的 JavaScript 邏輯 -->
     <script>
-        // 分頁切換邏輯
-        function switchTab(tabId) {
-            // 隱藏所有分頁
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-            
-            // 恢復所有按鈕樣式
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('text-cyan-400', 'border-cyan-400');
-                btn.classList.add('text-slate-400', 'border-transparent');
+        // 定義三家公司的上下游及詳細資料資料庫
+        const companyDatabase = {
+            '3010': {
+                name: '華立 (3010)',
+                industry: '上游材料總代理',
+                products: '獨家代理日本化學巨頭（JSR、信越化學）的高階半導體光阻劑、特殊氣體、CMP研磨液、高階ABF載板專用解析乾膜。',
+                relations: '直接打入【台積電】先進製程（3奈米/2奈米）供應鏈；同時供應高階乾膜材料給【欣興】、【南電】等載板大廠。',
+                strategy: '2026年Q1營收寫歷史新高！台積電寶山與高雄2奈米廠量產在即，高單價光阻劑將爆發性放量；與JSR合資的雲林廠在地化產能於2026下半年開出，通吃AI前段與後段材料。'
+            },
+            '2493': {
+                name: '揚博 (2493)',
+                industry: '中游製程設備與特殊藥水',
+                products: '自研「Ampoc 安博系列」垂直連續電鍍設備（VCP）、自動濕製程設備（清洗、蝕刻、顯影）；代理高階特殊電鍍化學品與測試探針。',
+                relations: '設備與製程藥水全面覆蓋【欣興】、【景碩】等載板大廠；並由載板端垂直延伸，提供封裝設備給【半導體OSAT大廠】。',
+                strategy: '2026台系PCB與載板集團「泰國擴產潮」進入密集交機裝機期。公司積極卡位先進封裝下世代「玻璃基板」精細表面蝕刻與電鍍技術，具備先發領先優勢。'
+            },
+            '6525': {
+                name: '捷敏-KY (6525)',
+                industry: '中游功率半導體封測 (OSAT)',
+                products: '高階低壓與高壓 MOSFET 封裝測試、電源管理IC（PMIC）封測、第三代半導體（SiC 碳化矽 / GaN 氮化鎵）高效電源模組封測。',
+                relations: '上游向【長科*】等導線架廠採購耗材，承接全球功率IDM大廠晶圓，封測完成後出貨給【台達電】、【光寶】等AI伺服器電源巨頭。',
+                strategy: '2026年4月營收創歷史單月新高！受惠 NVIDIA Blackwell 等 AI 伺服器機架對「超高功率/高電流」電源管理晶片封測需求全面大爆發，合肥新廠車用產能同步放量。'
+            }
+        };
+
+        // 節點點擊切換函式
+        function selectNode(companyId) {
+            // 1. 移除所有節點的選取樣式
+            document.querySelectorAll('[id^="node-"]').forEach(el => {
+                el.classList.remove('node-active');
             });
 
-            // 激活指定分頁與按鈕
-            document.getElementById(`tab-${tabId}`).classList.add('active');
-            const activeBtn = document.getElementById(`btn-${tabId}`);
-            activeBtn.classList.remove('text-slate-400', 'border-transparent');
-            activeBtn.classList.add('text-cyan-400', 'border-cyan-400');
+            // 2. 為被點擊的節點加上選取樣式
+            const activeNode = document.getElementById(`node-${companyId}`);
+            if (activeNode) {
+                activeNode.classList.add('node-active');
+            }
+
+            // 3. 取得資料並更新面板
+            const data = companyDatabase[companyId];
+            if (data) {
+                document.getElementById('panel-title').innerText = data.name;
+                document.getElementById('panel-industry').innerText = data.industry;
+                document.getElementById('panel-products').innerText = data.products;
+                document.getElementById('panel-relations').innerText = data.relations;
+                document.getElementById('panel-strategy').innerText = data.strategy;
+                
+                // 顯示面板（平滑效果）
+                const panel = document.getElementById('details-panel');
+                panel.classList.remove('hidden');
+                panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         }
 
-        // 圖表一：長線核心
-        const ctxLong = document.getElementById('longTermChart').getContext('2d');
-        new Chart(ctxLong, {
-            type: 'doughnut',
-            data: {
-                labels: ['欣興 (3037)', '0050 ETF'],
-                datasets: [{
-                    data: [3200, 1800],
-                    backgroundColor: ['#10b981', '#06b6d4'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } }
-                }
-            }
-        });
-
-        // 圖表二：中期波段
-        const ctxMid = document.getElementById('midTermChart').getContext('2d');
-        new Chart(ctxMid, {
-            type: 'doughnut',
-            data: {
-                labels: ['景碩 (3189)', '南電 (8046)'],
-                datasets: [{
-                    data: [20000, 10000],
-                    backgroundColor: ['#fbbf24', '#f43f5e'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11 } } }
-                }
-            }
+        // 網頁載入時，預設自動選取「華立(3010)」作為開場展示
+        window.addEventListener('DOMContentLoaded', () => {
+            selectNode('3010');
         });
     </script>
 </body>
