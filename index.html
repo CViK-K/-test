@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>個人智慧投資決策儀表板 | 2026</title>
+    <title>個人智慧投資決策儀表板 | 半導體全明星大滿貫版 (2026)</title>
     <!-- 引入相容性最高、最穩定的 Tailwind CSS v3 核心 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入 Chart.js 處理資金比例圓餅圖 -->
@@ -27,10 +27,10 @@
                 <h1 class="text-2xl md:text-3xl font-bold text-cyan-400 flex items-center gap-2">
                     <i class="fa-solid fa-layer-group"></i> 半導體旗艦決策儀表板
                 </h1>
-                <p class="text-slate-400 text-sm mt-1">2026 戰略布局：核心權值 ✖ 先進製程材料 ✖ AI高效電源 ✖ 記憶體循環</p>
+                <p class="text-slate-400 text-sm mt-1">2026 戰略布局：權值龍頭 ✖ 先進材料基板 ✖ 高效電源 ✖ 記憶體循環 ✖ 晶圓測試</p>
             </div>
             <div class="bg-slate-800 px-4 py-2 rounded-lg text-xs font-mono text-emerald-400 border border-slate-700">
-                <i class="fa-solid fa-clock mr-1"></i> 2026.05 旗艦版更新
+                <i class="fa-solid fa-clock mr-1"></i> 2026.06 旗艦全明星更新
             </div>
         </header>
 
@@ -54,7 +54,7 @@
             <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl flex flex-col justify-between">
                 <div>
                     <h2 class="text-lg font-bold text-yellow-400 mb-1"><i class="fa-solid fa-bolt mr-1"></i> 中期波段衝刺 (單筆獎金 30,000 元)</h2>
-                    <p class="text-xs text-slate-400 mb-4">策略：週期 0.5~3 個月，追求高資金轉換效率</p>
+                    <p class="text-xs text-slate-400 mb-4">策略：週期 0.5~3 個月，追求高資金轉換效率，精準捕捉爆發股</p>
                 </div>
                 <div class="w-full max-w-[180px] mx-auto mb-4">
                     <canvas id="midTermChart" width="180" height="180"></canvas>
@@ -69,7 +69,7 @@
         <div class="bg-slate-800 rounded-xl border border-slate-700 shadow-xl overflow-hidden">
             <div class="flex border-b border-slate-700 bg-slate-900/50 overflow-x-auto whitespace-nowrap">
                 <button onclick="switchTab('ic-substrate')" id="btn-ic-substrate" class="tab-btn px-6 py-3 font-medium text-sm text-cyan-400 border-b-2 border-cyan-400 focus:outline-none">
-                    💾 IC 載板與先進製程
+                    💾 先進材料、載板與測試
                 </button>
                 <button onclick="switchTab('memory')" id="btn-memory" class="tab-btn px-6 py-3 font-medium text-sm text-slate-400 border-b-2 border-transparent hover:text-slate-200 focus:outline-none">
                     🧠 記憶體原廠與模組鏈
@@ -82,8 +82,8 @@
             <div class="p-6 text-sm text-slate-300 space-y-4">
                 <!-- IC載板分頁 -->
                 <div id="tab-ic-substrate" class="tab-content active space-y-3">
-                    <h3 class="text-base font-bold text-white flex items-center gap-2">💡 先進製程與載板：高算力晶片的核心骨幹</h3>
-                    <p class="leading-relaxed text-slate-400">台積電的先進製程（3奈米/2奈米）與後段先進封裝（CoWoS、SoIC）是 AI 算力的心臟，而 <strong>ABF 載板</strong>（如欣興、南電、景碩）則是承載這些超高密度訊號的奈米級地基。兩者相互依存，產能擴張速度直接決定了 NVIDIA Blackwell 系列等 AI 晶片的出貨量。</p>
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">💡 先進製程大聯盟：從晶圓代工、核心材料到終端測試</h3>
+                    <p class="leading-relaxed text-slate-400">台積電的先進製程（3奈米/2奈米）與後段先進封裝（CoWoS、SoIC）是 AI 算力的心臟。然而，完美的晶圓需要最頂級的材料支援——包含華立代理的光阻劑，以及<strong>台光電（全球無鹵素CCL龍頭）</strong>所提供的超低損耗高速基板。這些晶片被組裝在 ABF 載板（欣興、南電、景碩）之上後，最終必須進駐<strong>京元電（AI專業測試大廠）</strong>進行超高功率液冷FT測試。製造、材料、測試三位一體，共同撐起 Blackwell 等次世代巨型算力晶片。</p>
                 </div>
                 <!-- 記憶體分頁 -->
                 <div id="tab-memory" class="tab-content space-y-3">
@@ -93,16 +93,16 @@
                 <!-- 功率與電源分頁 -->
                 <div id="tab-power-green" class="tab-content space-y-3">
                     <h3 class="text-base font-bold text-white">⚡ 綠能與功率半導體：AI 伺服器與電動車的節能中樞</h3>
-                    <p class="leading-relaxed text-slate-400">當晶片算力大幅提升，功耗也隨之暴增（AI 單機櫃功耗已突破 100kW）。從最上游的金屬散熱導線架（長科*）、到中游專業功率半導體封測（捷敏-KY），最後整合進全球市佔第一的**下游系統電源巨頭（台達電）**，整條功率鏈正全面往高壓、高電流與第三代半導體（SiC/GaN）升級，是科技業最穩健的點鈔機題材。</p>
+                    <p class="leading-relaxed text-slate-400">當晶片算力大幅提升，功耗也隨之暴增（AI 單機櫃功耗已突破 100kW）。從最上游的金屬散熱導線架（長科*）、到中游專業功率半導體封測（捷敏-KY），最後整合進全球市佔第一的**下游系統電源巨頭（台達電）**。同時，傳統消費性軟板大廠如**台郡（6269）**，亦積極朝向半導體後段面板級封裝（PLP）高頻天線軟板與電動車電池管理系統（BMS）轉型，開闢高毛利的防禦型新藍海。</p>
                 </div>
             </div>
         </div>
 
-        <!-- 區塊三：【旗艦整合版】可互動式上下游關係版圖 -->
+        <!-- 區塊三：【旗艦全明星整合版】可互動式上下游關係版圖 -->
         <section class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-xl">
             <div class="mb-6">
                 <h2 class="text-lg font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-diagram-project text-indigo-400"></i> AI 運算 ✖ 高效綠能電源 ✖ 儲存「全產業鏈合作地圖」
+                    <i class="fa-solid fa-diagram-project text-indigo-400"></i> 半導體全明星大聯盟「全產業鏈合作地圖」
                 </h2>
                 <p class="text-xs text-slate-400 mt-1">點擊下方流程圖中的任一個「企業方塊」，下方將即時聯動解鎖，完美呈現 2026 最新產業供應網絡！</p>
             </div>
@@ -111,16 +111,21 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <!-- 上游 -->
                 <div class="flex flex-col space-y-3">
-                    <div class="text-[11px] font-bold tracking-wider text-indigo-400 text-center bg-indigo-950/50 py-1.5 rounded border border-indigo-900 uppercase">▼ 上游：核心耗材 / 代理 / 原廠</div>
+                    <div class="text-[11px] font-bold tracking-wider text-indigo-400 text-center bg-indigo-950/50 py-1.5 rounded border border-indigo-900 uppercase">▼ 上游：核心材料 / 代理 / 原廠</div>
                     
-                    <div id="node-3010" onclick="selectNode('3010')" class="cursor-pointer bg-slate-900 p-3 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
+                    <div id="node-3010" onclick="selectNode('3010')" class="cursor-pointer bg-slate-900 p-2.5 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
                         <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">華立</span><span class="text-[9px] bg-indigo-900 text-indigo-200 px-1.5 py-0.5 rounded">3010</span></div>
-                        <p class="text-[10px] text-slate-400 mt-1">日本高階先進製程光阻劑總代理</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">先進製程高階光阻劑總代理</p>
+                    </div>
+
+                    <div id="node-2383" onclick="selectNode('2383')" class="cursor-pointer bg-slate-900 p-2.5 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
+                        <div class="flex justify-between items-center"><span class="font-bold text-cyan-400 text-xs">台光電</span><span class="text-[9px] bg-indigo-900 text-indigo-200 px-1.5 py-0.5 rounded">2383</span></div>
+                        <p class="text-[10px] text-slate-400 mt-0.5">全球高階無鹵素高速銅箔基板龍頭</p>
                     </div>
                     
-                    <div id="node-2408" onclick="selectNode('2408')" class="cursor-pointer bg-slate-900 p-3 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
+                    <div id="node-2408" onclick="selectNode('2408')" class="cursor-pointer bg-slate-900 p-2.5 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
                         <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">南亞科</span><span class="text-[9px] bg-indigo-900 text-indigo-200 px-1.5 py-0.5 rounded">2408</span></div>
-                        <p class="text-[10px] text-slate-400 mt-1">台系 DRAM 晶圓製造原廠</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">台系 DRAM 晶圓製造原廠</p>
                     </div>
                 </div>
                 
@@ -141,29 +146,40 @@
                 
                 <!-- 中游：晶圓代工與專業封測 -->
                 <div class="flex flex-col space-y-3">
-                    <div class="text-[11px] font-bold tracking-wider text-amber-400 text-center bg-amber-950/50 py-1.5 rounded border border-amber-900 uppercase">▼ 中游：核心晶圓製造 / 封測</div>
+                    <div class="text-[11px] font-bold tracking-wider text-amber-400 text-center bg-amber-950/50 py-1.5 rounded border border-amber-900 uppercase">▼ 中游：晶圓製造 / 封裝與測試</div>
                     
-                    <div id="node-2330" onclick="selectNode('2330')" class="cursor-pointer bg-slate-900 p-3 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
+                    <div id="node-2330" onclick="selectNode('2330')" class="cursor-pointer bg-slate-900 p-2.5 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
                         <div class="flex justify-between items-center"><span class="font-bold text-cyan-400 text-xs">台積電</span><span class="text-[9px] bg-amber-900 text-amber-200 px-1.5 py-0.5 rounded">2330</span></div>
-                        <p class="text-[10px] text-slate-400 mt-1">2奈米先進製程 / CoWoS後段封裝</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">先進邏輯代工 / CoWoS先進封裝</p>
                     </div>
 
-                    <div id="node-6525" onclick="selectNode('6525')" class="cursor-pointer bg-slate-900 p-3 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
+                    <div id="node-2449" onclick="selectNode('2449')" class="cursor-pointer bg-slate-900 p-2.5 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
+                        <div class="flex justify-between items-center"><span class="font-bold text-cyan-400 text-xs">京元電</span><span class="text-[9px] bg-amber-900 text-amber-200 px-1.5 py-0.5 rounded">2449</span></div>
+                        <p class="text-[10px] text-slate-400 mt-0.5">AI晶片高階成品測試 (FT/CP) 龍頭</p>
+                    </div>
+
+                    <div id="node-6525" onclick="selectNode('6525')" class="cursor-pointer bg-slate-900 p-2.5 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
                         <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">捷敏-KY</span><span class="text-[9px] bg-amber-900 text-amber-200 px-1.5 py-0.5 rounded">6525</span></div>
-                        <p class="text-[10px] text-slate-400 mt-1">MOSFET / 第三代半導體高效封測</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">MOSFET / 第三代半導體高效封測</p>
                     </div>
                 </div>
                 
                 <!-- 下游合作終端 -->
                 <div class="flex flex-col space-y-3">
-                    <div class="text-[11px] font-bold tracking-wider text-rose-400 text-center bg-rose-950/50 py-1.5 rounded border border-rose-900 uppercase">▼ 下游：核心中樞與終點系統</div>
+                    <div class="text-[11px] font-bold tracking-wider text-rose-400 text-center bg-rose-950/50 py-1.5 rounded border border-rose-900 uppercase">▼ 下游：電路基板與終端系統</div>
                     
                     <div id="node-3037" onclick="selectNode('3037')" class="cursor-pointer bg-slate-900 p-2.5 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
                         <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">欣興 / 南電 / 景碩</span><span class="text-[9px] bg-rose-900 text-rose-200 px-1.5 py-0.5 rounded">載板三雄</span></div>
                     </div>
 
+                    <div id="node-6269" onclick="selectNode('6269')" class="cursor-pointer bg-slate-900 p-2.5 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
+                        <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">台郡</span><span class="text-[9px] bg-rose-900 text-rose-200 px-1.5 py-0.5 rounded">6269</span></div>
+                        <p class="text-[10px] text-slate-400 mt-0.5">高頻高速軟板 / 卡位面板級封裝</p>
+                    </div>
+
                     <div id="node-2308" onclick="selectNode('2308')" class="cursor-pointer bg-slate-900 p-2.5 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
-                        <div class="flex justify-between items-center"><span class="font-bold text-cyan-400 text-xs">台達電 (2308)</span><span class="text-[9px] bg-rose-900 text-rose-200 px-1.5 py-0.5 rounded">伺服器電源</span></div>
+                        <div class="flex justify-between items-center"><span class="font-bold text-cyan-400 text-xs">台達電</span><span class="text-[9px] bg-rose-900 text-rose-200 px-1.5 py-0.5 rounded">2308</span></div>
+                        <p class="text-[10px] text-slate-400 mt-0.5">伺服器電源與液冷散熱霸主</p>
                     </div>
 
                     <div id="node-6548" onclick="selectNode('6548')" class="cursor-pointer bg-slate-900 p-2.5 rounded-xl border border-slate-700 transition-all duration-200 hover:border-blue-500">
@@ -214,28 +230,42 @@
                         <!-- 台積電 -->
                         <tr class="hover:bg-slate-700/30">
                             <td class="p-3 font-bold text-cyan-400 whitespace-nowrap">台積電 (2330)</td>
-                            <td class="p-3 bg-emerald-950/10">全球先進製程（3奈米與最新的2奈米）絕對壟斷地位；NVIDIA、Apple等大客訂單配比；美國與日本熊本廠良率放量速度。</td>
-                            <td class="p-3 bg-yellow-950/10">季底法說會調高全年資本支出指引；CoWoS月產能提前達成翻倍擴產目標；大盤融資清洗完畢法人集體回補時。</td>
-                            <td class="p-3 text-emerald-400 font-medium">2026先進製程與先進封裝持續供不應求，寶山與高雄2奈米建廠進入最後衝刺。</td>
+                            <td class="p-3 bg-emerald-950/10">全球先進製程（3奈米與2奈米）絕對壟斷地位；NVIDIA、Apple等大客訂單配比；美日海外廠擴產進度。</td>
+                            <td class="p-3 bg-yellow-950/10">季底法說會調高全年資本支出指引；CoWoS月產能提前擴產翻倍；大盤融資洗淨後法人集體回補。</td>
+                            <td class="p-3 text-emerald-400 font-medium">先進製程與封裝供不應求，2奈米寶山與高雄建廠進入裝機倒數，大聯盟多頭總引擎。</td>
+                        </tr>
+                        <!-- 京元電 -->
+                        <tr class="hover:bg-slate-700/30">
+                            <td class="p-3 font-bold text-cyan-400 whitespace-nowrap">京元電 (2449)</td>
+                            <td class="p-3 bg-emerald-950/10">台積電 CoWoS 擴產後的直接產能消化者；NVIDIA 高階 AI 晶片 FT/CP 測試市佔率。處分低毛利中國廠後的長線結構優化。</td>
+                            <td class="p-3 bg-yellow-950/10 text-yellow-400">Blackwell 因結構複雜導致測試時間（Test Time）成倍暴增推升ASP；苗栗銅鑼新廠全面投產營收創高。</td>
+                            <td class="p-3 text-emerald-400 font-medium">純度極高的「先進測試權值股」，毛利率因全心灌注高階 AI 大幅拉升至 35% 以上。</td>
+                        </tr>
+                        <!-- 台光電 -->
+                        <tr class="hover:bg-slate-700/30">
+                            <td class="p-3 font-bold text-cyan-400 whitespace-nowrap">台光電 (2383)</td>
+                            <td class="p-3 bg-emerald-950/10">【高爆發材料霸主】維持在 28%~30% 以上的高毛利議價權；美系四大 CSP 廠 AI 資本支出是否持續調高。</td>
+                            <td class="p-3 bg-yellow-950/10 text-yellow-400">次世代 AI 晶片之高難度 M8/M9 級基板材料通過認證；法人連續買超且籌碼出現「資減、券增」的經典軋空架構時。</td>
+                            <td class="p-3 text-emerald-400 font-medium">馬來西亞檳城新廠產能開出，通吃高階網通（800G交換器）與低軌衛星地面接收站天線板材料。</td>
                         </tr>
                         <!-- 台達電 -->
                         <tr class="hover:bg-slate-700/30">
                             <td class="p-3 font-bold text-cyan-400 whitespace-nowrap">台達電 (2308)</td>
-                            <td class="p-3 bg-emerald-950/10">全球伺服器電源市佔第一，長期看 AI 機櫃（如 Blackwell）超高功率電源模組、液冷散熱系統的獨家供貨滲透率，及車用逆變器長線獲利。</td>
-                            <td class="p-3 bg-yellow-950/10">AI 高階伺服器拉貨潮全面爆發；大型資料中心液冷散熱方案正式大量交貨財報亮眼；儲能及綠能電網政策利多發酵。</td>
-                            <td class="p-3 text-emerald-400 font-medium">受惠 AI 機架功耗暴增，中高階大容量電源供應器出貨強勁，2026毛利率顯著拉升。</td>
+                            <td class="p-3 bg-emerald-950/10">全球伺服器電源市佔第一，看 AI 機櫃（如 Blackwell）超高功率電源模組與液冷散熱系統的獨家一條龍滲透率。</td>
+                            <td class="p-3 bg-yellow-950/10">AI 高階伺服器拉貨潮全面爆發；大型資料中心液冷散熱方案正式大量交貨；儲能及綠能電網政策利多發酵。</td>
+                            <td class="p-3 text-emerald-400 font-medium">受惠 AI 機架功耗暴增，中高階大容量電源供應器出貨強勁，2026毛利率步入高成長軌道。</td>
                         </tr>
                         <!-- 南亞科 -->
                         <tr class="hover:bg-slate-700/30">
                             <td class="p-3 font-bold text-white whitespace-nowrap">南亞科 (2408)</td>
-                            <td class="p-3 bg-emerald-950/10">全球三大原廠（三星、海力士、美光）產能與報價競爭賽局；自身 1B 先進製程良率爬坡與自研 DDR5 晶片量產速度；網通及車用 DRAM 客製化毛利。</td>
-                            <td class="p-3 bg-yellow-950/10">國際記憶體現貨與合約報價築底正式強勢反彈；三大巨頭宣布繼續減產標準型DRAM、將產能全面轉向HBM與高階DDR5。</td>
-                            <td class="p-3">2026積極推動1B製程投產，期盼下半年逐步走出低階DRAM景氣循環谷底。</td>
+                            <td class="p-3 bg-emerald-950/10">全球三大原廠（三星、海力士、美光）減產與報價賽局；自身 1B 先進製程良率與自研 DDR5 晶片量產速度。</td>
+                            <td class="p-3 bg-yellow-950/10">國際記憶體現貨與合約報價築底正式強勢反彈；三大巨頭宣布繼續減產標準型DRAM、將產能全面轉向HBM。</td>
+                            <td class="p-3">2026積極推動1B新製程投產，期盼下半年逐步走出低端消費性DRAM景氣循環谷底。</td>
                         </tr>
                         <!-- 欣興 -->
                         <tr class="hover:bg-slate-700/30">
                             <td class="p-3 font-bold text-white whitespace-nowrap">欣興 (3037)</td>
-                            <td class="p-3 bg-emerald-950/10">【長線加碼首選】每月3200元規律扣款。長線追蹤先進封裝ABF載板的高產值良率與客戶深度。</td>
+                            <td class="p-3 bg-emerald-950/10">【長線加碼首選】每月3200元規律扣款。長線追蹤先進封裝ABF載板的高層數高良率與客戶深度。</td>
                             <td class="p-3 bg-yellow-950/10">大盤權值股，適合在大盤從波段回檔整理完、高階晶片缺貨擴產話題重燃時，手動零股打波段價差。</td>
                             <td class="p-3">技術與良率最穩，與NVIDIA、Intel等一線巨頭長線綁定。</td>
                         </tr>
@@ -244,34 +274,41 @@
                             <td class="p-3 font-bold text-white whitespace-nowrap">南電 (8046)</td>
                             <td class="p-3 bg-emerald-950/10">長期觀察台塑集團資源傾注決心，以及高達百億以上的「歷史級擴產」何時完全化為實質營收。</td>
                             <td class="p-3 bg-yellow-950/10 text-emerald-400">2026官方公告AI產品營收比重正式衝破50%，進入高度成長期。當法人聯手買超、營收利多發酵時可順勢做多。</td>
-                            <td class="p-3 text-emerald-400 font-medium">4月營收創40個月全新高，下半年營運看好季季增。</td>
+                            <td class="p-3 text-emerald-400 font-medium">營收自低點強勢復甦，下半年配合集團作帳營運看好季季增。</td>
                         </tr>
                         <!-- 景碩 -->
                         <tr class="hover:bg-slate-700/30">
                             <td class="p-3 font-bold text-white whitespace-nowrap">景碩 (3189)</td>
                             <td class="p-3 bg-emerald-950/10">長期觀察AI智慧型手機晶片與記憶體BT載板的規格大升級，以及轉投資晶碩隱形眼鏡的獲利配息。</td>
                             <td class="p-3 bg-yellow-950/10 text-yellow-400">【中期價差主將】3萬獎金首選。三雄中股本最小、股性最活。中短期極易隨記憶體復甦話題出現巨大彈幅。</td>
-                            <td class="p-3">2026Q1營收與獲利表現亮眼，市場預期重挑戰高檔。</td>
+                            <td class="p-3">2026營收與獲利表現重返常軌，市場預期重挑戰高檔。</td>
+                        </tr>
+                        <!-- 台郡 -->
+                        <tr class="hover:bg-slate-700/30">
+                            <td class="p-3 font-bold text-white whitespace-nowrap">台郡 (6269)</td>
+                            <td class="p-3 bg-emerald-950/10">【轉型轉機防禦股】非手機營收（車用電池BMS管理軟板、高階網通）佔比是否跨過30%~40%分水嶺以獲得重新評價。</td>
+                            <td class="p-3 bg-yellow-950/10">第三季蘋果 Apple Intelligence AI 新機拉貨前的「傳統傳聞期」（6-8月）；先進封裝軟板材料通過半導體大廠認證。</td>
+                            <td class="p-3">利用軟板微細線路優勢卡位半導體面板級封裝（PLP）高頻軟板介面，歷年配息大方具備殖利率防護。</td>
                         </tr>
                         <!-- 十銓 -->
                         <tr class="hover:bg-slate-700/30">
                             <td class="p-3 font-bold text-white whitespace-nowrap">十銓 (4967)</td>
                             <td class="p-3 bg-emerald-950/10">長期需觀察高毛利B2B（工控、車載、企業資料中心）營收比重是否能跨過5成，以擺脫消費性記憶體的剧烈景氣循環。</td>
                             <td class="p-3 bg-yellow-950/10">月中與月底緊盯DRAM與NAND現貨合約報價。只要AI推論基礎設施採購熱度不減、報價續飆，具備恐怖的短中期財報大題材。</td>
-                            <td class="p-3 text-emerald-400 font-medium">2026Q1受惠低價備料紅利，單季自結EPS狂飆27元刷新台股歷史。</td>
+                            <td class="p-3 text-emerald-400 font-medium">2026受惠低價備料紅利，在AI推論伺服器大規模建置潮中，享受巨大的現貨利差。</td>
                         </tr>
                         <!-- 華立 -->
                         <tr class="hover:bg-slate-700/30">
                             <td class="p-3 font-bold text-white whitespace-nowrap">華立 (3010)</td>
-                            <td class="p-3 bg-emerald-950/10">台積電最鐵的材料後盾。看先進製程（3/2奈米）光阻劑消耗速度、與日本JSR/信越合作。此外，綠能儲能大案場進度也是穩定來源。</td>
+                            <td class="p-3 bg-emerald-950/10">台積電最鐵的材料後盾。看先進製程（3/2奈米）光阻劑消耗速度。此外，綠能儲能大案場進度也是穩定來源。</td>
                             <td class="p-3 bg-yellow-950/10">台積電法說宣布上修資本支出；美、日海外建廠產能正式開出放量；先進封裝CoWoS底部填充膠拉貨高峰期。</td>
-                            <td class="p-3 text-emerald-400 font-medium">2026Q1營收創218.4億歷史新高！2奈米量產將帶動單價高增長.</td>
+                            <td class="p-3 text-emerald-400 font-medium">2026隨台積電新竹寶山、高雄廠2奈米量產時程推進，高單價光阻劑消耗量將爆發。</td>
                         </tr>
                         <!-- 揚博 -->
                         <tr class="hover:bg-slate-700/30">
                             <td class="p-3 font-bold text-white whitespace-nowrap">揚博 (2493)</td>
-                            <td class="p-3 bg-emerald-950/10">長期看台系PCB/載板廠的整體擴產循環（如泰國廠區）。觀察公司自研Ampoc高毛利機台在先進封裝（CoWoS）製程中的滲透率。</td>
-                            <td class="p-3 bg-yellow-950/10">載板大廠泰國廠2026年密集交機裝機期；市場炒作下一世代先進封裝「玻璃基板」表面處理與精密電鍍濕製程機台題材。</td>
+                            <td class="p-3 bg-emerald-950/10">長期看台系PCB/載板廠的整體擴產循環。觀察公司自研Ampoc高毛利機台在先進封裝（CoWoS）製程中的滲透率。</td>
+                            <td class="p-3 bg-yellow-950/10">載板大廠泰國廠密集交機裝機期；市場炒作下一世代先進封裝「玻璃基板」表面處理與精密電鍍濕製程機台題材。</td>
                             <td class="p-3">股本11.4億小巧、高配息。高階濕製程技術成功延伸至晶圓級封裝。</td>
                         </tr>
                         <!-- 捷敏-KY -->
@@ -279,7 +316,7 @@
                             <td class="p-3 font-bold text-white whitespace-nowrap">捷敏-KY (6525)</td>
                             <td class="p-3 bg-emerald-950/10">看全球車用功率元件復甦力道、合肥新廠車規擴產爬坡、台灣廠第三代半導體（SiC/GaN）高壓高效封測量產狀況。</td>
                             <td class="p-3 bg-yellow-950/10">AI伺服器機櫃功耗爆表，帶動超高功率電源管理晶片封測需求，適合在法人連續買超、月營收創高時順勢操作價差。</td>
-                            <td class="p-3 text-emerald-400 font-medium">2026年4月營收衝上5.4億元，刷新單月歷史新高，AI電源封測極強。</td>
+                            <td class="p-3 text-emerald-400 font-medium">營收表現刷歷史單月新高，AI電源封測動能極強，與長科*深度合作。</td>
                         </tr>
                     </tbody>
                 </table>
@@ -301,63 +338,84 @@
             ab.classList.add('text-cyan-400', 'border-cyan-400');
         }
 
-        // 互動版圖資料庫 (納入台積電、台達電、南亞科)
+        // 互動版圖資料庫 (新增台光電、台郡、京元電)
         const companyDatabase = {
             '3010': {
                 name: '華立 (3010) — 先進製程核心耗材代理大廠',
                 industry: '上游：核心耗材 / 材料總代理',
                 products: '獨家總代理日本化學巨頭（JSR、信越化學）的高階半導體前段光阻劑、黃光製程特殊氣體、CMP研磨液、高階ABF載板專用解析乾膜。',
                 relations: '日本材料巨頭的特許代理。直接大量供應最頂級光阻劑給【台積電】前段先進製程；並供應解析乾膜給【欣興】等下游載板廠。',
-                strategy: '2026年Q1營收刷歷史新高。隨台積電新竹寶山、高雄廠2奈米量產時程推進，高毛利高單價光阻劑消耗量將爆發，且與JSR合資的雲林新廠在地產能即將在下半年開出。'
+                strategy: '隨台積電新竹寶山、高雄廠2奈米量產時程推進，高毛利高單價光阻劑消耗量將爆發，且與JSR合資的雲林新廠在地產能即將放量。'
+            },
+            '2383': {
+                name: '台光電 (2383) — 全球無鹵素高速銅箔基板 (CCL) 龍頭',
+                industry: '上游：核心高速材料與高階基板霸主',
+                products: '超低損耗（Ultra Low Loss）高頻高速銅箔基板（M7/M8/M9 等級）、專利無鹵素環保高耐熱樹脂配方材料。',
+                relations: '高階基板材料獨佔 NVIDIA H100/Blackwell 供應鏈的核心份額。將 CCL 基板大量交貨給【金像電、欣興】等中游，最終加工製成 AI 伺服器的 OAM 與 UBB。',
+                strategy: '2026年隨 AI 傳輸標準邁入 PCIe Gen 6，M8/M9 等級高端材料出貨單價大幅躍升；馬來西亞檳城新廠產能開出，並具備「資減券增」高法人的籌碼軋空特性。'
             },
             '2408': {
                 name: '南亞科 (2408) — 台系獨立 DRAM 製造原廠',
                 industry: '上游：DRAM 晶圓製造原廠',
                 products: '主要生產標準型隨機存取記憶體（DRAM）晶圓與晶片、高密度 DDR4/DDR3 以及車用/工控客製化高穩定度記憶體晶片。',
                 relations: '台塑集團旗下核心半導體原廠。將切割好的記憶體晶圓與晶片，大量出貨給中游模組加工廠【十銓】及全球各大系統與消費性電子廠。',
-                strategy: '2026年加速導入自主研發的「1B先進製程」，並積極推動自研高毛利 DDR5 的產能爬坡。隨全球AI引導三大巨頭產能移往HBM，有利南亞科在標準型DRAM中進行去庫存與報價復甦。'
+                strategy: '2026年加速導入自主研發的「1B先進製程」，並積極推動自研高毛利 DDR5 的產能爬坡。隨全球AI引導三大巨頭產能移往HBM，有利標準型DRAM去庫存。'
             },
             '2493': {
                 name: '揚博 (2493) — 先進封裝與高階載板精密製程設備',
                 industry: '中游：精密機台 / 特殊製程藥水',
                 products: '自研「Ampoc 安博系列」垂直連續電鍍設備（VCP）、自動濕製程設備（清洗、蝕刻、顯影）；代理高階特殊電鍍化學品與測試探針。',
                 relations: '設備與製程藥水全面覆蓋【欣興】、【南電】、【景碩】等載板大廠；並由載板端垂直延伸，提供封裝設備給【半導體OSAT大廠】。',
-                strategy: '2026台系PCB與載板集團「泰國擴產潮」進入密集交機裝機期。公司積極卡位先進封裝下世代「玻璃基板」精細表面蝕刻與電鍍技術，具備先發領先優勢。'
+                strategy: '台系PCB與載板集團「泰國擴產潮」進入密集交機裝機期。公司積極卡位先進封裝下世代「玻璃基板」精細表面蝕刻與電鍍技術，具備先發領先優勢。'
             },
             '6525': {
                 name: '捷敏-KY (6525) — 全球專業功率半導體封測龍頭',
                 industry: '中游：功率半導體封測 (OSAT)',
                 products: '高階低壓與高壓 MOSFET 封裝測試、電源管理IC（PMIC）封測、第三代半導體（SiC 碳化矽 / GaN 氮化鎵）高效電源模組封測。',
-                relations: '向【長科*】採購金屬導線架作為基礎耗材，承接全球功率晶圓大廠（如英飛凌、安森美）晶圓進行封測，成品最終100%交付給下游電源巨頭【台達電】。',
-                strategy: '2026年4月營收創歷史單月新高！受惠 NVIDIA Blackwell 等 AI 伺服器機架對「超高功率/高電流」電源管理晶片封測需求全面大爆發，合肥新廠車用產能同步放量。'
+                relations: '向【長科*】採購金屬導線架作為基礎耗材，承接全球功率晶圓大廠（如英飛凌）晶圓進行封測，成品最終100%交付給下游電源巨頭【台達電】。',
+                strategy: '受惠 NVIDIA Blackwell 等 AI 伺服器機架對「超高功率/高電流」電源管理晶片封測需求全面大爆發，合肥新廠車用產能同步放量。'
             },
             '4967': {
                 name: '十銓 (4967) — 電競與工控記憶體模組巨頭',
                 industry: '中游：記憶體加工 / 儲存品牌',
                 products: 'T-FORCE / T-CREATE 電競超頻記憶體、高階RGB水冷SSD、客製化工業級與企業級大容量記憶體模組。',
                 relations: '向上游原廠【南亞科】以及全球三大巨頭（三星、美光等）採購DRAM顆粒與晶圓，進行高規格封裝加工，最終賣給全球伺服器與電競市場。',
-                strategy: '2026年Q1寫下台股歷史神話（單季自結EPS高達27元）！憑藉敏銳市調，提前手握近百億超低價DDR5庫存，在2026年AI推論伺服器大規模建置潮中，享受報價暴漲帶來的巨大現貨利差。'
+                strategy: '憑藉敏銳市調提前手握超低價DDR5庫存，在2026年AI推論伺服器大規模建置潮中，享受報價暴漲帶來的巨大現貨利差。'
             },
             '2330': {
-                name: '台積電 (2330) — 全球晶圓代工與先進封裝無冕之王',
+                name: '台經電 (2330) — 全球晶圓代工與先進封裝無冕之王',
                 industry: '中游：先進晶圓代工與後段先進封裝中樞',
                 products: '3奈米 / 2奈米高階邏輯晶片晶圓代工，以及 CoWoS / SoIC 等 2.5D/3D 高階晶圓級後段先進封裝。',
-                relations: '前段製程大量消耗【華立】代理的頂級光阻劑。晶圓切好後，結合【欣興】等載板廠供應的 ABF 高階地基進行先進封裝，製成 NVIDIA / AMD 的頂級 AI 晶片。',
-                strategy: '2026 年全球高算力與生成式 AI 晶片需求衝至極限，2 奈米寶山廠與高雄廠產能進入裝機放量倒數；美、日海外建廠同步大豐收，是整個半導體大聯盟的最核心多頭總引擎。'
+                relations: '前段製程大量消耗【華立】代理的頂級光阻劑。晶圓切好、封裝好後，直接送往【京元電】進行高階 FT 成品測試，再由【欣興】等提供 ABF 地基。',
+                strategy: '2026 全球高算力與生成式 AI 晶片需求沖至極限，2 奈米寶山廠與高雄廠產能進入裝機放量倒數，是整個半導體大聯盟的最核心多頭總引擎。'
+            },
+            '2449': {
+                name: '京元電 (2449) — 全球 AI 晶片測試咽喉大廠',
+                industry: '中游：核心晶圓製造 / 專業晶圓與成品測試 (OSAT)',
+                products: '高階晶圓測試（CP, Chip Probe）、晶片成品測試（FT, Final Test）、專利超高功率 AI 晶片液冷散熱測試系統與技術。',
+                relations: '處於供應鏈收尾階段。承接【台經電】完工、CoWoS 封裝完成後的 NVIDIA / AMD 頂級 AI 晶片，進行最終高難度 FT 測試，合格後方能送往下遊組裝。',
+                strategy: '次世代 Blackwell 晶片因架構複雜，單顆晶片測試時間（Test Time）翻倍增長，帶動產能極度供不應求與ASP大幅調升；苗栗銅鑼新廠全面放量。'
             },
             '3037': {
                 name: '載板三雄 (欣興 3037 / 南電 8046 / 景碩 3189)',
                 industry: '下游端：高階 IC 載板核心聯盟',
                 products: '高層數、高密度、細線路的 ABF 載板（用於AI/HPC核心運算晶片）與 BT 載板（用於手機、記憶體）。',
-                relations: '向【華立】採購ABF專用乾膜、使用【揚博】的垂直電鍍機台與蝕刻藥水。生產的載板送至【台積電】進行後段 CoWoS 先進封裝。',
-                strategy: '2026先進封裝CoWoS與 Blackwell 大量拉貨，欣興技術最穩、南電2026年AI營收過半大擴產（4月創40個月營收新高）、景碩股本小彈性大（3萬中期波段首選）。'
+                relations: '向【華立】採購ABF專用乾膜、使用【揚博】的垂直電鍍機台。承接【台光電】基板材料後進行加工，最終送至【台積電】進行後段封裝。',
+                strategy: '2026先進封裝CoWoS與 Blackwell 大量拉貨，欣興技術最穩、南電2026年AI營收過半大擴產、景碩股本小彈性大（3萬中期波段首選）。'
+            },
+            '6269': {
+                name: '台郡 (6269) — 蘋果高頻高速天線軟板 (FPC) 技術鐵衛',
+                industry: '下游端：高階載板與電路軟板大聯盟',
+                products: '高頻高速 LCP/MPI 天線軟板、多層細線路軟式印刷電路板、光電整合傳輸模組軟板。',
+                relations: '長期深耕蘋果供應鏈。利用精細軟板線路技術，垂直向下跨界延伸，卡位【半導體OSAT廠】次世代面板級封裝（PLP）高頻軟板介面。',
+                strategy: '2026年受惠 Apple Intelligence 驅動的手機實質換機基本盤紅利；積極轉型多元布局（車用動力電池BMS管理軟板、高階網通），屬於高殖利率防守轉機股。'
             },
             '2308': {
                 name: '台達電 (2308) — 全球 AI 伺服器電源與液冷散熱霸主',
                 industry: '下游端：終端高效能電源與系統大廠',
                 products: 'AI 伺服器專用超高功率電源供應器（單模組跨入數千瓦等級）、資料中心全套液冷與散熱系統、車用動力系統逆變器。',
                 relations: '其電源供應器內部核心，大量採用了【捷敏-KY】封測完成的高壓 MOSFET、功率元件與電源管理晶片（PMIC）。',
-                strategy: '2026 年 AI 伺服器機櫃功耗徹底爆表，傳統電源已不適用。台達電通吃高效電源供應器與「液冷散熱」一條龍整合方案，毛利率在2026年步入高成長軌道，戰略地位無可取代。'
+                strategy: 'AI 伺服器機櫃功耗徹底爆表。台達電通吃高效電源供應器與「液冷散熱」一條龍整合方案，毛利率在2026年步入高成長軌道，戰略地位無可取代。'
             },
             '6548': {
                 name: '長科* (6548) — 全球金屬導線架製造大廠',
