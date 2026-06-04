@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>個人智慧投資決策儀表板 | 半導體 DAG 結構版</title>
+    <!-- Tailwind CSS v3 -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js 資金比例圖 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome 圖示 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入 LeaderLine 用於繪製節點間的流暢貝茲曲線 (有向無環圖核心) -->
     <script src="https://cdn.jsdelivr.net/npm/leader-line-new@1.1.9/leader-line.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght=400;500;700&display=swap');
@@ -23,6 +27,7 @@
 <body class="p-4 md:p-8 bg-slate-900 text-slate-100 min-h-screen">
 
     <div class="max-w-7xl mx-auto space-y-8">
+        <!-- 頂部導航欄 -->
         <header class="border-b border-slate-700 pb-4 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div>
                 <h1 class="text-2xl md:text-3xl font-bold text-cyan-400 flex items-center gap-2">
@@ -31,11 +36,13 @@
                 <p class="text-slate-400 text-sm mt-1">2026 戰略佈局：可自由拖曳、點擊聯動的有向無環圖 (DAG) 投資輔助系統</p>
             </div>
             <div class="bg-slate-800 px-4 py-2 rounded-lg text-xs font-mono text-emerald-400 border border-slate-700">
-                <i class="fa-solid fa-circle-nodes mr-1"></i> DAG Graph Pipeline V2.1
+                <i class="fa-solid fa-circle-nodes mr-1"></i> DAG Graph Pipeline V2.2
             </div>
         </header>
 
+        <!-- 區塊一：資金布局雙圖表區 -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- 常態扣款 -->
             <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl flex flex-col justify-between">
                 <div>
                     <h2 class="text-lg font-bold text-emerald-400 mb-1"><i class="fa-solid fa-compass mr-1"></i> 長線核心配置 (每月固定 5,000 元)</h2>
@@ -49,6 +56,7 @@
                 </div>
             </div>
 
+            <!-- 中期衝刺 -->
             <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl flex flex-col justify-between">
                 <div>
                     <h2 class="text-lg font-bold text-yellow-400 mb-1"><i class="fa-solid fa-bolt mr-1"></i> 中期波段衝刺 (單筆獎金 30,000 元)</h2>
@@ -63,6 +71,7 @@
             </div>
         </div>
 
+        <!-- 區塊二：動態分頁產業結構介紹區 -->
         <div class="bg-slate-800 rounded-xl border border-slate-700 shadow-xl overflow-hidden">
             <div class="flex border-b border-slate-700 bg-slate-900/50 overflow-x-auto">
                 <button onclick="switchTab('ic-substrate')" id="btn-ic-substrate" class="tab-btn px-6 py-3 font-medium text-sm text-cyan-400 border-b-2 border-cyan-400 focus:outline-none">
@@ -72,16 +81,17 @@
                     🧠 記憶體原廠與模組鏈
                 </button>
                 <button onclick="switchTab('power-green')" id="btn-power-green" class="tab-btn px-6 py-3 font-medium text-sm text-slate-400 border-b-2 border-transparent hover:text-slate-200 focus:outline-none">
-                    ⚡ 功率半導體與高效電源
+                    ⚡ 功率半導體與設備群
                 </button>
             </div>
             <div class="p-6 text-sm text-slate-300">
-                <div id="tab-ic-substrate" class="tab-content active"><p class="text-slate-400">台積電的先進製程與 CoWoS 封裝為高效能運算（HPC）提供核心產能。晶圓製程需依靠材料支援，包括華立代理的光阻劑，以及<strong>台光電</strong>供應的低損耗高速銅箔基板。晶片切割後安置於 ABF 載板（欣興、南電、景碩），並經由<strong>京元電</strong>等測試廠完成成品功能性與散熱測試。由材料、製造到測試，構成完整的晶圓後段產業鏈。</p></div>
-                <div id="tab-memory" class="tab-content"><p class="text-slate-400">記憶體由<strong>上游原廠（南亞科）</strong>主導產能供給。當伺服器規格升級帶動高端記憶體需求，原廠產能轉往 HBM 與 DDR5 時，標準型產品供給收縮。此時**中游模組廠（十銓）**之營運表現，通常取決於其低價現貨庫存之水位以及合約價差波動幅度。</p></div>
-                <div id="tab-power-green" class="tab-content"><p class="text-slate-400">高效能運算晶片功耗提升，增加資料中心供電與散熱需求。產業鏈由散熱導線架（長科*）、中游功率半導體封測（捷敏-KY），延伸至**下游系統電源廠商（台達電）**。同時，硬體升級亦驅動消費性軟板大廠如**台郡（6269）**向面板級封裝（PLP）高頻軟板介面與車用動力管理軟板進行多元化業務轉型。</p></div>
+                <div id="tab-ic-substrate" class="tab-content active"><p class="text-slate-400">台積電的先進製程與 CoWoS 封裝為高效能運算提供產能。晶圓後段製程需依靠材料支援，包括華立代理的光阻劑、<strong>長興</strong>供應的真空壓膜機用封裝材料，以及台光電高速銅箔基板。晶片切割後安置於 ABF 載板，並經由京元電等測試廠完成成品功能性測試。由材料、製造到測試，構成完整的晶圓後段產業鏈。</p></div>
+                <div id="tab-memory" class="tab-content"><p class="text-slate-400">記憶體由上游原廠（南亞科）主導產能供給。當伺服器規格升級帶動高端記憶體需求，原廠產能轉往 HBM 與 DDR5 時，標準型產品供給收縮。此時中游模組廠（十銓）之營運表現，通常取決於其現貨庫存之水位以及合約價差波動幅度。</p></div>
+                <div id="tab-power-green" class="tab-content"><p class="text-slate-400">高效能運算與先進製程建廠需求，直接拉動製程自動化與材料供應。長華集團（<strong>長華*、長科*</strong>）提供中下游封測所需之金屬導線架與耗材代理。同時，前段與先進封裝製程則仰賴揚博的濕製程設備，以及<strong>均豪（2421）</strong>供應之自動光學檢測（AOI）與晶圓搬運自動化系統，協力推升後段封測綜合良率。</p></div>
             </div>
         </div>
 
+        <!-- 區塊三：【DAG 畫布】可拖曳、點擊有向無環圖 -->
         <section class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-xl space-y-4">
             <div>
                 <h2 class="text-lg font-bold text-white flex items-center gap-2">
@@ -90,69 +100,90 @@
                 <p class="text-xs text-slate-400 mt-1">🖐️ **操作說明**：可利用滑鼠拖曳節點自由排版，連線將自動更新位置。單擊節點可查閱下方廠商之 2026 年營運近況分析。</p>
             </div>
 
-            <div id="dag-canvas" class="w-full h-[520px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden relative">
+            <!-- DAG 畫布主體 -->
+            <div id="dag-canvas" class="w-full h-[620px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden relative">
                 
-                <div id="node-3010" style="top: 40px; left: 40px;" class="dag-node bg-slate-900 border border-indigo-500/50 p-3 rounded-xl w-56 shadow-lg">
+                <!-- 上游節點群 -->
+                <div id="node-3010" style="top: 30px; left: 40px;" class="dag-node bg-slate-900 border border-indigo-500/50 p-3 rounded-xl w-56 shadow-lg">
                     <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">華立</span><span class="text-[9px] bg-indigo-950 text-indigo-300 px-1.5 py-0.5 rounded border border-indigo-800/50">3010</span></div>
                     <p class="text-[10px] text-slate-400 mt-1">🧪 半導體前段黃光製程耗材代理商</p>
                 </div>
 
-                <div id="node-2383" style="top: 180px; left: 40px;" class="dag-node bg-slate-900 border border-indigo-500/50 p-3 rounded-xl w-56 shadow-lg">
+                <div id="node-1717" style="top: 155px; left: 40px;" class="dag-node bg-slate-900 border border-indigo-500/50 p-3 rounded-xl w-56 shadow-lg">
+                    <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">長興</span><span class="text-[9px] bg-indigo-950 text-indigo-300 px-1.5 py-0.5 rounded border border-indigo-800/50">1717</span></div>
+                    <p class="text-[10px] text-slate-400 mt-1">🧪 化學材料及先進封裝封裝模塑料廠</p>
+                </div>
+
+                <div id="node-2383" style="top: 280px; left: 40px;" class="dag-node bg-slate-900 border border-indigo-500/50 p-3 rounded-xl w-56 shadow-lg">
                     <div class="flex justify-between items-center"><span class="font-bold text-cyan-400 text-xs">台光電</span><span class="text-[9px] bg-indigo-950 text-indigo-300 px-1.5 py-0.5 rounded border border-indigo-800/50">2383</span></div>
                     <p class="text-[10px] text-slate-400 mt-1">💎 高階無鹵素高速銅箔基板製造商</p>
                 </div>
 
-                <div id="node-2408" style="top: 400px; left: 40px;" class="dag-node bg-slate-900 border border-indigo-500/50 p-3 rounded-xl w-56 shadow-lg">
+                <div id="node-2408" style="top: 480px; left: 40px;" class="dag-node bg-slate-900 border border-indigo-500/50 p-3 rounded-xl w-56 shadow-lg">
                     <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">南亞科</span><span class="text-[9px] bg-indigo-950 text-indigo-300 px-1.5 py-0.5 rounded border border-indigo-800/50">2408</span></div>
                     <p class="text-[10px] text-slate-400 mt-1">🧠 DRAM 晶圓設計與製造廠</p>
                 </div>
 
-                <div id="node-2493" style="top: 40px; left: 340px;" class="dag-node bg-slate-900 border border-emerald-500/50 p-3 rounded-xl w-56 shadow-lg">
+                <!-- 中游設備與通道代理群 -->
+                <div id="node-2493" style="top: 30px; left: 340px;" class="dag-node bg-slate-900 border border-emerald-500/50 p-3 rounded-xl w-56 shadow-lg">
                     <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">揚博</span><span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-800/50">2493</span></div>
                     <p class="text-[10px] text-slate-400 mt-1">⚙️ PCB 與先進封裝濕製程設備廠</p>
                 </div>
 
-                <div id="node-4967" style="top: 400px; left: 340px;" class="dag-node bg-slate-900 border border-emerald-500/50 p-3 rounded-xl w-56 shadow-lg">
+                <div id="node-2421" style="top: 155px; left: 340px;" class="dag-node bg-slate-900 border border-emerald-500/50 p-3 rounded-xl w-56 shadow-lg">
+                    <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">均豪</span><span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-800/50">2421</span></div>
+                    <p class="text-[10px] text-slate-400 mt-1">⚙️ 半導體與先進封裝檢測設備廠</p>
+                </div>
+
+                <div id="node-8070" style="top: 280px; left: 340px;" class="dag-node bg-slate-900 border border-emerald-500/50 p-3 rounded-xl w-56 shadow-lg">
+                    <div class="flex justify-between items-center"><span class="font-bold text-cyan-400 text-xs">長華*</span><span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-800/50">8070</span></div>
+                    <p class="text-[10px] text-slate-400 mt-1">📦 半導體材料通路代理與集團控股</p>
+                </div>
+
+                <div id="node-4967" style="top: 480px; left: 340px;" class="dag-node bg-slate-900 border border-emerald-500/50 p-3 rounded-xl w-56 shadow-lg">
                     <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">十銓</span><span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-800/50">4967</span></div>
                     <p class="text-[10px] text-slate-400 mt-1">⚡ 記憶體模組加工與自有品牌商</p>
                 </div>
 
-                <div id="node-2330" style="top: 130px; left: 640px;" class="dag-node bg-slate-900 border border-amber-500/50 p-3 rounded-xl w-56 shadow-lg">
+                <!-- 中游晶圓製造與測試核心 -->
+                <div id="node-2330" style="top: 90px; left: 640px;" class="dag-node bg-slate-900 border border-amber-500/50 p-3 rounded-xl w-56 shadow-lg">
                     <div class="flex justify-between items-center"><span class="font-bold text-cyan-400 text-xs">台積電</span><span class="text-[9px] bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded border border-amber-800/50">2330</span></div>
                     <p class="text-[10px] text-slate-400 mt-1">🏭 先進邏輯晶片代工與晶圓級封裝</p>
                 </div>
 
-                <div id="node-2449" style="top: 290px; left: 640px;" class="dag-node bg-slate-900 border border-amber-500/50 p-3 rounded-xl w-56 shadow-lg">
+                <div id="node-2449" style="top: 240px; left: 640px;" class="dag-node bg-slate-900 border border-amber-500/50 p-3 rounded-xl w-56 shadow-lg">
                     <div class="flex justify-between items-center"><span class="font-bold text-cyan-400 text-xs">京元電</span><span class="text-[9px] bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded border border-amber-800/50">2449</span></div>
                     <p class="text-[10px] text-slate-400 mt-1">🎯 晶圓測試與晶片成品測試供應商</p>
                 </div>
 
-                <div id="node-6525" style="top: 410px; left: 640px;" class="dag-node bg-slate-900 border border-amber-500/50 p-3 rounded-xl w-56 shadow-lg">
+                <div id="node-6525" style="top: 390px; left: 640px;" class="dag-node bg-slate-900 border border-amber-500/50 p-3 rounded-xl w-56 shadow-lg">
                     <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">捷敏-KY</span><span class="text-[9px] bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded border border-amber-800/50">6525</span></div>
                     <p class="text-[10px] text-slate-400 mt-1">🔌 功率半導體與高壓元件封測廠</p>
                 </div>
 
-                <div id="node-3037" style="top: 40px; left: 950px;" class="dag-node bg-slate-900 border border-rose-500/50 p-3 rounded-xl w-56 shadow-lg">
+                <!-- 下游終端系統群 -->
+                <div id="node-3037" style="top: 30px; left: 950px;" class="dag-node bg-slate-900 border border-rose-500/50 p-3 rounded-xl w-56 shadow-lg">
                     <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">載板三雄</span><span class="text-[9px] bg-rose-950 text-rose-300 px-1.5 py-0.5 rounded border border-rose-800/50">欣興/南電/景碩</span></div>
                     <p class="text-[10px] text-slate-400 mt-1">🧬 高密度晶片承載用 ABF / BT 載板</p>
                 </div>
 
-                <div id="node-6269" style="top: 180px; left: 950px;" class="dag-node bg-slate-900 border border-rose-500/50 p-3 rounded-xl w-56 shadow-lg">
+                <div id="node-6548" style="top: 155px; left: 950px;" class="dag-node bg-slate-900 border border-rose-500/50 p-3 rounded-xl w-56 shadow-lg">
+                    <div class="flex justify-between items-center"><span class="font-bold text-cyan-400 text-xs">長科*</span><span class="text-[9px] bg-rose-950 text-rose-300 px-1.5 py-0.5 rounded border border-rose-800/50">6548</span></div>
+                    <p class="text-[10px] text-slate-400 mt-1">🦷 半導體金屬導線架專業製造商</p>
+                </div>
+
+                <div id="node-6269" style="top: 280px; left: 950px;" class="dag-node bg-slate-900 border border-rose-500/50 p-3 rounded-xl w-56 shadow-lg">
                     <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">台郡</span><span class="text-[9px] bg-rose-950 text-rose-300 px-1.5 py-0.5 rounded border border-rose-800/50">6269</span></div>
                     <p class="text-[10px] text-slate-400 mt-1">📱 軟式印刷電路板與高頻傳輸材料</p>
                 </div>
 
-                <div id="node-2308" style="top: 320px; left: 950px;" class="dag-node bg-slate-900 border border-rose-500/50 p-3 rounded-xl w-56 shadow-lg">
+                <div id="node-2308" style="top: 405px; left: 950px;" class="dag-node bg-slate-900 border border-rose-500/50 p-3 rounded-xl w-56 shadow-lg">
                     <div class="flex justify-between items-center"><span class="font-bold text-cyan-400 text-xs">台達電</span><span class="text-[9px] bg-rose-950 text-rose-300 px-1.5 py-0.5 rounded border border-rose-800/50">2308</span></div>
                     <p class="text-[10px] text-slate-400 mt-1">⚡ 伺服器電源、交換器與工業自動化</p>
                 </div>
-
-                <div id="node-6548" style="top: 440px; left: 950px;" class="dag-node bg-slate-900 border border-slate-600 p-3 rounded-xl w-56 shadow-lg">
-                    <div class="flex justify-between items-center"><span class="font-bold text-white text-xs">長科*</span><span class="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded border border-slate-700">6548</span></div>
-                    <p class="text-[10px] text-slate-400 mt-1">🦷 半導體金屬導線架製造商</p>
-                </div>
             </div>
 
+            <!-- 連動詳細資訊面板 -->
             <div id="details-panel" class="mt-6 bg-slate-900 rounded-xl p-5 border border-slate-700 hidden">
                 <div class="flex items-center gap-3 mb-3">
                     <h3 id="panel-title" class="text-base font-bold text-blue-400">公司名稱</h3>
@@ -175,9 +206,10 @@
             </div>
         </section>
 
+        <!-- 區塊四：全方位追蹤標的大表格 -->
         <section class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl overflow-hidden">
             <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-table-list text-cyan-400"></i> 全方位追蹤標的快檢表 (長線 ✖ 中期對照)
+                <i class="fa-solid fa-table-list text-cyan-400"></i> 全方位追蹤標的快檢表 (新增標的對照)
             </h2>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse text-xs md:text-sm">
@@ -197,58 +229,28 @@
                             <td class="p-3 text-emerald-400 font-medium">高階製程需求穩定，2奈米寶山與高雄廠建廠逐步推進中。</td>
                         </tr>
                         <tr class="hover:bg-slate-700/30">
-                            <td class="p-3 font-bold text-cyan-400 whitespace-nowrap">京元電 (2449)</td>
-                            <td class="p-3 bg-emerald-950/10">後段先進封裝晶片 FT/CP 測試市佔率；處分中國蘇州廠後之結構優化。</td>
-                            <td class="p-3 bg-yellow-950/10 text-yellow-400">高效能運算晶片結構複雜度拉高導致測試時間（Test Time）變化。</td>
-                            <td class="p-3 text-emerald-400 font-medium">業務重心移往高階測試，苗栗銅鑼新廠產能於2026年陸續開出。</td>
+                            <td class="p-3 font-bold text-white whitespace-nowrap">長興 (1717)</td>
+                            <td class="p-3 bg-emerald-950/10">傳統合成樹脂及乾膜光阻基底回溫狀況；高階封裝材料認證進度。</td>
+                            <td class="p-3 bg-yellow-950/10">先進封裝用光固化封裝模塑料（EMC）小量試產與拉貨反饋。</td>
+                            <td class="p-3">由傳產樹脂跨足半導體封裝材料，為產值提供新的利基型增長點。</td>
                         </tr>
                         <tr class="hover:bg-slate-700/30">
-                            <td class="p-3 font-bold text-cyan-400 whitespace-nowrap">台光電 (2383)</td>
-                            <td class="p-3 bg-emerald-950/10">高階無鹵素材料市場議價權；北美大型雲端服務供應商（CSP）資本支出動向。</td>
-                            <td class="p-3 bg-yellow-950/10 text-yellow-400">次世代傳輸規格 M8/M9 基板材料客戶認證進度與量產時程。</td>
-                            <td class="p-3 text-emerald-400 font-medium">馬來西亞廠新產能投入，主攻高階網通（800G交換器）基板材料。</td>
+                            <td class="p-3 font-bold text-cyan-400 whitespace-nowrap">均豪 (2421)</td>
+                            <td class="p-3 bg-emerald-950/10">G2C+聯盟（均豪、均華、志聖）之機台聯合銷售市佔率與後續維護營收。</td>
+                            <td class="p-3 bg-yellow-950/10">主要晶片代工廠後段先進封裝線之 AOI 檢測設備裝機與營收認列。</td>
+                            <td class="p-3 text-emerald-400 font-medium">成功由面板與傳統 PCB 領域轉型至半導體先進封裝自動化機台領域。</td>
                         </tr>
                         <tr class="hover:bg-slate-700/30">
-                            <td class="p-3 font-bold text-cyan-400 whitespace-nowrap">台達電 (2308)</td>
-                            <td class="p-3 bg-emerald-950/10">高階伺服器電源供應器與資料中心液冷、氣冷散熱系統之滲透率。</td>
-                            <td class="p-3 bg-yellow-950/10">高功率電源模組拉貨動能；大型資料中心散熱專案階段性出貨。</td>
-                            <td class="p-3 text-emerald-400 font-medium">因應高機櫃功耗趨勢，中高階大容量電源與水冷方案營收比重拉升。</td>
+                            <td class="p-3 font-bold text-cyan-400 whitespace-nowrap">長華* (8070)</td>
+                            <td class="p-3 bg-emerald-950/10">子公司長科*之股利回充貢獻；其自身經銷日本先進材料之代理權穩定度。</td>
+                            <td class="p-3 bg-yellow-950/10">半導體材料封裝市場回溫強度，帶動通路貿易營收擴張。</td>
+                            <td class="p-3 text-emerald-400 font-medium">身兼長科*大股東，具備集團材料通路代理與長期配息之控股色彩。</td>
                         </tr>
                         <tr class="hover:bg-slate-700/30">
-                            <td class="p-3 font-bold text-white whitespace-nowrap">南亞科 (2408)</td>
-                            <td class="p-3 bg-emerald-950/10">美、韓大廠減產政策與庫存去化去向；自身 1B 先進製程良率。</td>
-                            <td class="p-3 bg-yellow-950/10">記憶體現貨與合約報價反彈走勢；三大巨頭產能移往 HBM 之產出排擠效應。</td>
-                            <td class="p-3">推動1B新製程投產，期盼下半年標準型DRAM業務逐步走出景氣低谷。</td>
-                        </tr>
-                        <tr class="hover:bg-slate-700/30">
-                            <td class="p-3 font-bold text-white whitespace-nowrap">欣興 (3037)</td>
-                            <td class="p-3 bg-emerald-950/10">【長線核心】高層數、高密度 ABF 載板營收貢獻度與長線良率表現。</td>
-                            <td class="p-3 bg-yellow-950/10">大盤回檔整理後之法人籌碼回補跡象；高效能晶片客戶訂單調整。</td>
-                            <td class="p-3">產能與製程相對成熟，長期與主要晶片設計及代工廠商配合。</td>
-                        </tr>
-                        <tr class="hover:bg-slate-700/30">
-                            <td class="p-3 font-bold text-white whitespace-nowrap">南電 (8046)</td>
-                            <td class="p-3 bg-emerald-950/10">集團資源配置與擴產折舊成本認列狀況；高階網通載板復甦時程。</td>
-                            <td class="p-3 bg-yellow-950/10 text-emerald-400">高階產品營收佔比跨過預期分水嶺；法人買盤連續性與營收表現。</td>
-                            <td class="p-3 text-emerald-400 font-medium">營收呈現築底復甦，下半年配合網通去庫存告一段落，動能審慎樂觀。</td>
-                        </tr>
-                        <tr class="hover:bg-slate-700/30">
-                            <td class="p-3 font-bold text-white whitespace-nowrap">景碩 (3189)</td>
-                            <td class="p-3 bg-emerald-950/10">智慧型手機晶片與記憶體 BT 載板規格升級；轉投資獲利貢獻。</td>
-                            <td class="p-3 bg-yellow-950/10 text-yellow-400">【中期價差主將】3萬獎金觀察。股本相對較小，隨記憶體景氣敏感度高。</td>
-                            <td class="p-3">業務結構重回往年常軌，中短期主要依賴記憶體與手機市場回溫。</td>
-                        </tr>
-                        <tr class="hover:bg-slate-700/30">
-                            <td class="p-3 font-bold text-white whitespace-nowrap">台郡 (6269)</td>
-                            <td class="p-3 bg-emerald-950/10">非手機業務（車用電池BMS管理軟板、高階網通）營收比重結構變化。</td>
-                            <td class="p-3 bg-yellow-950/10">美系客戶第3季季節性新機拉貨效應；半導體面板級封裝軟板驗證進度。</td>
-                            <td class="p-3">利用軟板微細線路技術切入面板級封裝傳輸介面，過往配息政策較穩定。</td>
-                        </tr>
-                        <tr class="hover:bg-slate-700/30">
-                            <td class="p-3 font-bold text-white whitespace-nowrap">十銓 (4967)</td>
-                            <td class="p-3 bg-emerald-950/10">B2B工控與企業資料中心等高毛利業務佔比；消費性現貨比重。</td>
-                            <td class="p-3 bg-yellow-950/10">DRAM 與 NAND 現貨合約價即時走勢，直接牽動庫存評價利潤。</td>
-                            <td class="p-3 text-emerald-400 font-medium">前期低價備料水位逐步去化，後續營收視推論伺服器市場採購狀況而定。</td>
+                            <td class="p-3 font-bold text-cyan-400 whitespace-nowrap">長科* (6548)</td>
+                            <td class="p-3 bg-emerald-950/10">QFN、伺服器電源與車用高散熱金屬導線架之長線滲透率與毛利率變化。</td>
+                            <td class="p-3 bg-yellow-950/10">車用電子與主要封測廠（OSAT）庫存去化完畢後的再補貨動能。</td>
+                            <td class="p-3 text-emerald-400 font-medium">積極推廣高散熱導線架技術，近年亦受惠於大型資料中心硬體元件升級。</td>
                         </tr>
                     </tbody>
                 </table>
@@ -270,42 +272,45 @@
             ab.classList.add('text-cyan-400', 'border-cyan-400');
         }
 
-        // 互動 DAG 資料庫 (修正為客觀、研究報告體)
+        // 互動 DAG 資料庫 (新增均豪、長興、長華*、長科*)
         const companyDatabase = {
-            '3010': { name: '華立 (3010) — 半導體前段黃光製程耗材代理商', industry: '上游：核心耗材總代理', products: '經銷日本化學廠商（如 JSR）之前段光阻劑、黃光製程特殊氣體、CMP研磨液，以及 ABF 載板解析乾膜。', relations: '取得日廠材料在台代理權。直接供應光阻劑等耗材予【台積電】前段製程；並供應解析乾膜予【載板三雄】等業者。', strategy: '營運表現與大客戶先進製程產能利用率高度正相關；2奈米製程進度推進將同步影響耗材消耗量。' },
-            '2383': { name: '台光電 (2383) — 高階無鹵素高速銅箔基板 (CCL) 製造商', industry: '上游：高速材料與基板製造', products: '超低損耗（Ultra Low Loss）高頻高速銅箔基板（主要供應 M7/M8 規格）、無鹵素環保樹脂材料。', relations: '主要供應高階伺服器多層板基材。物料交貨予多層板、載板廠【載板三雄】，經加工後切入 HPC 供應鏈。', strategy: '2026年主要觀察下一代 PCIe Gen 6 規格轉換時，高端材料（M8/M9）之出貨單價與客戶採用比例。' },
-            '2408': { name: '南亞科 (2408) — DRAM 晶圓設計與製造廠', industry: '上游：DRAM 晶圓原廠', products: '標準型隨機存取記憶體（DRAM）晶圓與晶片、DDR4/DDR3 世代產品、車用與工控客製化小容量記憶體。', relations: '為台塑集團旗下獨立記憶體廠商。提供記憶體晶圓顆粒，主要出貨予中游模組加工廠【十銓】及系統商。', strategy: '積極進行「1B先進製程」產品良率改善與自研 DDR5 投產。營運主要受制於全球三大記憶體廠產能調節。' },
-            '2493': { name: '揚博 (2493) — PCB 與先進封裝精密製程設備供應商', industry: '中游：精密機台設備', products: '垂直連續電鍍設備（VCP）、自動濕製程清洗設備、蝕刻設備、顯影設備及特殊化學品經銷。', relations: '主要供應濕製程機台予【載板三雄】建廠或擴產使用；設備技術亦延伸切入晶圓級先進封裝鏈。', strategy: '營收主要取決於台系 PCB 廠赴泰國等東南亞擴產之裝機認列時程，並觀察高毛利自研機台之比重變化。' },
-            '4967': { name: '十銓 (4967) — 記憶體模組加工與自有品牌商', industry: '中游：記憶體品牌加工', products: '電競超頻記憶體模組、高階固態硬碟（SSD）、工業級大容量儲存裝置。', relations: '向上游原廠【南亞科】或全球記憶體三大廠採購晶圓與顆粒，經封裝加工成品牌模組後銷售至通路與伺服器市場。', strategy: '營運具有較高景氣循環特性，毛利率波動取決於前期備料庫存成本與當期記憶體現貨/合約價之價差。' },
-            '2330': { name: '台積電 (2330) — 邏輯晶片代工與晶圓級先進封裝製造商', industry: '中游：先進晶圓代工與先進封裝中樞', products: '提供3奈米、2奈米及以下之先進製程晶圓代工，以及 CoWoS、SoIC 等晶圓級 2.5D/3D 封裝服務。', relations: '前段製造製程消耗【華立】光阻。晶圓封裝完成後，轉交予【京元電】等廠商進行成品功能測試。', strategy: '2026年觀察重點為2奈米新竹寶山廠與高雄廠之裝機進度、產能開出時程，以及先進封裝毛利率之演進。' },
-            '2449': { name: '京元電 (2449) — 晶圓測試與晶片成品專業測試廠 (OSAT)', industry: '中游：專業晶圓與成品測試 (OSAT)', products: '半導體後段晶圓測試（CP）、成品功能測試（FT）、高功率晶片散熱測試方案。', relations: '位於供應鏈後段。承接【台積電】先進封裝完成後之邏輯與計算晶片，執行最終檢驗流程，合格後方可出貨。', strategy: '處分消費性蘇州廠後，資源聚焦高階運算晶片測試。2026年看點為客戶新架構晶片測試時間對產能之拉動。' },
-            '6525': { name: '捷敏-KY (6525) — 功率半導體專業封測廠', industry: '中游：功率半導體封測', products: '低壓與高壓 MOSFET（金屬氧化物半導體場效電晶體）封裝測試、車用與工控功率模組封測。', relations: '向下游耗材廠【長科*】採購金屬導線架作為基材，為晶圓廠進行封裝，成品多數裝載於【台達電】電源系統中。', strategy: 'AI 伺服器電源管理與電動車高壓系統帶動功率元件封測需求，2026主要觀察合肥新廠產能利用率。' },
-            '3037': { name: '載板三雄 (欣興 3037 / 南電 8046 / 景碩 3189)', industry: '下游端：高階 IC 載板製造聯盟', products: '高層數、細線路 ABF 載板（供高效能運算晶片承載）與 BT 載板（供手機、記憶體使用）。', relations: '採用【揚博】精密機台與【台光電】提供的銅箔材料進行加工。為【台積電】後段封裝結構之基礎承載件。', strategy: '產能利用率與 HPC 晶片拉貨動能息息相關。欣興偏向高層數製程、南電觀察網通復甦、景碩具備記憶體彈性。' },
-            '6269': { name: '台郡 (6269) — 軟式印刷電路板與高頻傳輸材料商', industry: '下游端：電路板與天線材料供應商', products: '高頻高速 LCP/MPI 天線軟板、多層微細線路軟板、面板級封裝高頻軟板傳輸介面。', relations: '長期供貨予美系消費性電子大廠。近年利用軟板細線路技術，嘗試跨界提供半導體【OSAT測試廠】介面材料。', strategy: '美系手機 AI 應用是否引發實質換機潮為基本盤動能；業務轉型（如車用電池 BMS 軟板）營收佔比為觀察指標。' },
-            '2308': { name: '台達電 (2308) — 伺服器電源與工業自動化系統供應商', industry: '下游端：終端電源與自動化系統大廠', products: '高階伺服器專用電源供應器、微網頁儲能系統、資料中心氣冷與液冷散熱整合方案、車用驅動馬達系統。', relations: '其製造之電源供應器，內部大量採用【捷敏-KY】等封測廠產出之功率晶片與 MOSFET 組件。', strategy: '資料中心機櫃功耗由傳統規格往高效規格演進，高功率電源供應器與液冷散熱模組出貨比重為獲利關鍵。' },
-            '6548': { name: '長科* (6548) — 半導體金屬導線架製造商', industry: '下游端耗材：金屬導線架製造', products: '積體電路（IC）金屬導線架、高散熱 QFN（四方扁平無引腳封裝）導線架。', relations: '生產之散熱金屬導線架，直接供應予中游專業功率半導體封測廠如【捷敏-KY】作為基礎包材。', strategy: '車用電源與伺服器電源晶片封裝走向 QFN 規格，2026年著重觀察產能擴充認列與主要封測廠拉貨動態。' }
+            '3010': { name: '華立 (3010) — 半導體前段黃光製程耗材代理商', industry: '上游：核心耗材總代理', products: '經銷日本化學廠商之前段光阻劑、黃光製程特殊氣體、CMP研磨液。', relations: '直接供應前段材料予【台積電】；與長華*、長興同屬材料供應鏈。', strategy: '營運表現與大客戶先進製程產能利用率高度正相關。' },
+            '1717': { name: '長興 (1717) — 特殊化學材料及封裝模塑料廠', industry: '上游：化學及封裝材料製造', products: '合成樹脂、電子化學材料、先進封裝用真空壓膜機與光固化封裝模塑料（EMC）。', relations: '提供基礎特用化學品，製程材料出貨予後段載板廠【載板三雄】或封測廠商。', strategy: '2026年主要觀察半導體高階材料的營收佔比是否能有效拉升，帶動毛利轉型。' },
+            '2383': { name: '台光電 (2383) — 高階無鹵素高速銅箔基板 (CCL) 製造商', industry: '上游：高速材料與基板製造', products: '超低損耗高頻高速銅箔基板、無鹵素環保樹脂材料。', relations: '物料交貨予多層板、載板廠【載板三雄】，經加工後切入 HPC 供應鏈。', strategy: '觀察下一代高速傳輸規格轉換時，高端材料（M8/M9）之客戶採用比例。' },
+            '2408': { name: '南亞科 (2408) — DRAM 晶圓設計與製造廠', industry: '上游：DRAM 晶圓原廠', products: '標準型隨機存取記憶體（DRAM）晶圓與晶片、DDR4/DDR3 世代產品。', relations: '提供記憶體晶圓顆粒，主要出貨予中游模組加工廠【十銓】。', strategy: '積極推動1B新製程投產，營運主要受制於全球三大記憶體廠產能調節。' },
+            '2493': { name: '揚博 (2493) — PCB 與先進封裝精密製程設備供應商', industry: '中游：精密機台設備', products: '垂直連續電鍍設備（VCP）、自動濕製程清洗設備、蝕刻與顯影設備。', relations: '主要供應濕製程機台予【載板三雄】建廠或擴產使用。', strategy: '營收主要取決於台系 PCB 廠赴東南亞擴產之裝機認列時程。' },
+            '2421': { name: '均豪 (2421) — 半導體與先進封裝製程檢測設備廠', industry: '中游：精密檢測與自動化設備', products: '自動光學檢測（AOI）設備、晶圓研磨拋光機、先進封裝貼膜機與機器人搬運系統。', relations: '與志聖、均華組成聯盟，檢測機台直接打入【台積電】先進封裝線，扮演製程良率把關角色。', strategy: '2026年看點在於先進封裝擴產潮下，AOI 與貼膜機台的接單出貨時程。' },
+            '8070': { name: '長華* (8070) — 半導體材料通路代理與集團控股', industry: '中游：材料通路代理與投資控股', products: '代理日本住友等大廠之封裝材料（如封裝樹脂）、先進材料代理，並控股子公司【長科*】。', relations: '整合上游材料代理通路，轉化為封裝物料交予封測廠；持有【長科*】核心股權。', strategy: '扮演長華集團母體角色，2026年觀察其通路業務擴張與來自長科*的投資收益。' },
+            '4967': { name: '十銓 (4967) — 記憶體模組加工與自有品牌商', industry: '中游：記憶體品牌加工', products: '電競超頻記憶體模組、高階固態硬碟（SSD）。', relations: '向上游原廠【南亞科】等採購晶圓，加工後銷售至通路與伺服器市場。', strategy: '毛利率波動取決於前期備料庫存成本與當期記憶體現貨價差。' },
+            '2330': { name: '台編電 (2330) — 邏輯晶片代工與晶圓級先進封裝製造商', industry: '中游：先進晶圓代工與先進封裝中樞', products: '提供先進製程晶圓代工，以及 CoWoS、SoIC 等晶圓級先進封裝服務。', relations: '前段消耗【華立】耗材。引進【均豪】AOI 與自動化機台；後段交【京元電】測試。', strategy: '2026年觀察2奈米新廠建置、產能開出時程與先進封裝毛利率演進。' },
+            '2449': { name: '京元電 (2449) — 晶圓測試與晶片成品專業測試廠 (OSAT)', industry: '中游：專業晶圓與成品測試 (OSAT)', products: '半導體後段晶圓測試（CP）、成品功能測試（FT）、高功率晶片散熱測試方案。', relations: '承接【台積電】先進封裝完成後之邏輯晶片，執行最終成品檢驗流程。', strategy: '資源聚焦高階運算晶片測試，看點為客戶新架構晶片導致測試時間的增長。' },
+            '6525': { name: '捷敏-KY (6525) — 功率半導體專業封測廠', industry: '中游：功率半導體封測', products: '低壓與高壓 MOSFET 封裝測試、車用與工控功率模組封測。', relations: '採用【長科*】金屬導線架作為基材進行封裝，成品多數裝載於【台達電】系統中。', strategy: 'AI 伺服器電源與電動車高壓系統帶動功率元件封測需求。' },
+            '3037': { name: '載板三雄 (欣興 3037 / 南電 8046 / 景碩 3189)', industry: '下游端：高階 IC 載板製造聯盟', products: '高層數、細線路 ABF 載板與 BT 載板。', relations: '採用【揚博】機台與【台光電】銅箔基板加工。為【台積電】後段封裝之基礎承載件。', strategy: '產能利用率與 HPC 晶片拉貨動能息息相關。' },
+            '6548': { name: '長科* (6548) — 半導體金屬導線架專業製造商', industry: '下游端：金屬導線架製造', products: '積體電路（IC）金屬導線架、高散熱 QFN（四方扁平無引腳封裝）導線架。', relations: '長華集團核心製造商，接受【長華*】資源調配。生產之導線架直接供應予封測廠如【捷敏-KY】。', strategy: '車用與伺服器高功率電源晶片走向 QFN 規格，2026著重觀察主要封測廠拉貨動態。' },
+            '6269': { name: '台郡 (6269) — 軟式印刷電路板與高頻傳輸材料商', industry: '下游端：電路板與天線材料供應商', products: '高頻高速天線軟板、多層微細線路軟板、面板級封裝高頻傳輸介面。', relations: '利用軟板細線路技術，嘗試跨界提供半導體【OSAT測試廠】介面材料。', strategy: '美系手機 AI 應用是否引發實質換機潮，以及車用轉型進度。' },
+            '2308': { name: '台達電 (2308) — 伺服器電源與工業自動化系統供應商', industry: '下游端：終端電源與自動化系統大廠', products: '高階伺服器專用電源供應器、資料中心氣冷與液冷散熱整合方案。', relations: '其製造之電源供應器，內部大量採用【捷敏-KY】等封測廠產出之功率組件。', strategy: '高功率電源供應器與液冷散熱模組出貨比重為獲利關鍵。' }
         };
 
-        // 畫布連線陣列
         let connections = [];
 
-        // 初始化 DAG 連線
+        // 初始化 DAG 連線 (更新包含新標的的邏輯網路)
         function initDAGLines() {
             connections.forEach(line => line.remove());
             connections = [];
 
             const linePairs = [
-                { from: '3010', to: '2330', color: '#6366f1' }, 
-                { from: '3010', to: '3037', color: '#6366f1' }, 
-                { from: '2383', to: '3037', color: '#06b6d4' }, 
-                { from: '2408', to: '4967', color: '#818cf8' }, 
-                { from: '2493', to: '2330', color: '#10b981' }, 
-                { from: '2493', to: '3037', color: '#10b981' }, 
-                { from: '2330', to: '2449', color: '#f59e0b' }, 
-                { from: '2330', to: '3037', color: '#f59e0b' }, 
-                { from: '6548', to: '6525', color: '#94a3b8' }, 
-                { from: '6525', to: '2308', color: '#fbbf24' }, 
-                { from: '6269', to: '2449', color: '#f43f5e' }  
+                { from: '3010', to: '2330', color: '#6366f1' }, // 華立 -> 台積電
+                { from: '1717', to: '3037', color: '#6366f1' }, // 長興 -> 載板三雄
+                { from: '2383', to: '3037', color: '#06b6d4' }, // 台光電 -> 載板三雄
+                { from: '2408', to: '4967', color: '#818cf8' }, // 南亞科 -> 十銓
+                { from: '2493', to: '2330', color: '#10b981' }, // 揚博 -> 台積電
+                { from: '2421', to: '2330', color: '#10b981' }, // 均豪 -> 台積電 (檢測機台)
+                { from: '8070', to: '6548', color: '#a855f7' }, // 長華* -> 長科* (集團控股)
+                { from: '2330', to: '2449', color: '#f59e0b' }, // 台積電 -> 京元電
+                { from: '2330', to: '3037', color: '#f59e0b' }, // 台積電 -> 載板三雄
+                { from: '6548', to: '6525', color: '#94a3b8' }, // 長科* -> 捷敏-KY
+                { from: '6525', to: '2308', color: '#fbbf24' }, // 捷敏-KY -> 台達電
+                { from: '6269', to: '2449', color: '#f43f5e' }  // 台郡 -> 京元電
             ];
 
             linePairs.forEach(pair => {
@@ -326,7 +331,6 @@
             });
         }
 
-        // 節點拖曳與點擊連動控制
         function makeNodesDraggableAndClickable() {
             const canvas = document.getElementById('dag-canvas');
             const nodes = document.querySelectorAll('.dag-node');
@@ -388,7 +392,6 @@
             });
         }
 
-        // 網頁初始化
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 initDAGLines();
@@ -400,7 +403,6 @@
                 connections.forEach(line => line.position());
             });
 
-            // 渲染資金配置圓餅圖
             new Chart(document.getElementById('longTermChart').getContext('2d'), {
                 type: 'doughnut',
                 data: { labels: ['欣興 (3037)', '0050 ETF'], datasets: [{ data: [3200, 1800], backgroundColor: ['#10b981', '#06b6d4'], borderWidth: 0 }] },
